@@ -2,13 +2,23 @@ if arg[2] == "debug" then
     require("lldebugger").start()
 end
 
+function love.load()
 
-    function love.draw()
-    love.graphics.print("hello world!", 400, 300)
-    end
-print("hello world")
+end
 
-    local love_errorhandler = love.errorhandler
+function love.update(dt)
+  
+end
+
+function love.draw() 
+
+end
+
+function love.keypressed(key)
+
+end
+
+local love_errorhandler = love.errorhandler
 
 function love.errorhandler(msg)
     if lldebugger then
