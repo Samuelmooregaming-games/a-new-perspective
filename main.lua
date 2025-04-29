@@ -5,7 +5,7 @@ end
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
- SCREEN_INDEX = 0
+ SCREEN_INDEX = 1
 
 
  
@@ -31,16 +31,18 @@ mouse control
 ]]--
 
 function love.load()
-    local Screen = require("screen")
-    local StartScreen = require "startscreen"
-    local LevelSelect = require "LevelSelect"
-    local Level = require "level"
+     local Screen = require("screen")
+    -- local StartScreen = require "startscreen"
+    -- local LevelSelect = require "LevelSelect"
+    -- local Level = require "level"
+    local Win = require "win"
     Screens = {}
 
     --create screens here
-    table.insert(StartScreen())
-    table.insert(LevelSelect())
-    table.insert(Level())
+   -- table.insert(StartScreen())
+    --table.insert(LevelSelect())
+    --table.insert(Level())
+    table.insert(Screens, Win())
 end
 
 function love.update(dt)
@@ -50,7 +52,8 @@ end
 
 function love.draw() 
     Screens[SCREEN_INDEX]:DrawScreen()
-end
+    
+end    
 
 function love.keypressed(key)
     Screens[SCREEN_INDEX]:Keypressed(key)
