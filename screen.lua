@@ -1,3 +1,4 @@
+local Object = require"classic"
 local Screen = Object:extend()
 
 function Screen:new()
