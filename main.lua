@@ -7,42 +7,22 @@ SCREEN_HEIGHT = 600
 
  SCREEN_INDEX = 1
 
-
- 
---[[
-
-screen objects
-    start
-    level select
-    level
-    win
-
-menus
-level logic
-transitions
-
-
-button
-    create a button module
-    wasd controls in menu
-mouse control
-    set up basic mouse control functions for menus
-
-]]--
-
 function love.load()
-     local Screen = require("screen")
-    -- local StartScreen = require "startscreen"
-    -- local LevelSelect = require "LevelSelect"
-    -- local Level = require "level"
-    local Win = require "win"
+    local Level = require "level"
     Screens = {}
 
     --create screens here
-   -- table.insert(StartScreen())
-    --table.insert(LevelSelect())
-    --table.insert(Level())
-    table.insert(Screens, Win())
+    table.insert(Screens, Level(
+    {
+        0,0,2,0,0,0,
+        0,0,2,0,0,0,
+        0,2,1,2,0,0,
+        0,0,2,0,0,0,
+        0,0,2,0,0,0
+    },
+    6
+    ))
+
 end
 
 function love.update(dt)

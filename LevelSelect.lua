@@ -1,6 +1,9 @@
 --local Screen = require "screen"
 
---local LevelSelect = screen:extend()
+
+
+local LevelSelect = Screen:extend()
+
 
 --local SCREEN_WIDTH = 800
 --local SCREEN_HEIGHT = 600
@@ -12,9 +15,9 @@
 --     self.super.new()
 -- end
 
--- function LevelSelect:Update(dt)
-    
---     for i = 10
+
+function LevelSelect:Update(dt)
+
 
 -- end
 
