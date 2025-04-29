@@ -1,6 +1,7 @@
-local Screen = require "screen"
+-- local Screen = require "screen"
 
-local Level = Screen:extend()
+-- local Level = Screen:extend()
+
 
 --[[
 
@@ -33,8 +34,10 @@ function Level:new(map,mapWidth)
 
 end
 
-function Level:DrawScreen()
-    self.super.DrawScreen()
+
+-- function Level:DrawScreen()
+--     self.super.DrawScreen()
+
 
     -- these varaibles define the top 
     local mapOffsetX = love.graphics.getWidth()/2 - (self.tileWidth*self.mapWidth)/2
@@ -48,6 +51,7 @@ function Level:DrawScreen()
         end
         love.graphics.rectangle("fill", math.fmod(i-1,self.mapWidth)*(self.tileWidth) + mapOffsetX ,math.floor((i-1)/self.mapWidth)*(self.tileWidth) + mapOffsetY, self.tileWidth, self.tileWidth)
     end
+
 
     love.graphics.setColor(1,1,1)
     love.graphics.circle("fill", (self.player.x*self.tileWidth) + mapOffsetX + self.tileWidth/2, (self.player.y*self.tileWidth) + mapOffsetY + self.tileWidth/2,10)
@@ -83,6 +87,6 @@ function Level:Keypressed(key)
         self.player.y = y
     end
 
-end
+-- end
 
-return Level
+-- return Level

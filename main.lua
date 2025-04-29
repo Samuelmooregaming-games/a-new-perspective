@@ -22,6 +22,7 @@ function love.load()
     },
     6
     ))
+
 end
 
 function love.update(dt)
@@ -31,7 +32,8 @@ end
 
 function love.draw() 
     Screens[SCREEN_INDEX]:DrawScreen()
-end
+    
+end    
 
 function love.keypressed(key)
     Screens[SCREEN_INDEX]:Keypressed(key)

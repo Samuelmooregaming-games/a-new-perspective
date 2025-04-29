@@ -1,12 +1,12 @@
-local Screen = require "screen"
+-- local Screen = require "screen"
 
-local StartScreen = Screen:extend()
+-- local StartScreen = Screen:extend()
 
---start screen code goes here
+-- --start screen code goes here
 
-function StartScreen:new()
-    self.super.new()
-end
+-- function StartScreen:new()
+--     self.super.new()
+-- end
 
 
-return StartScreen
+-- return StartScreen
