@@ -5,7 +5,7 @@ end
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
- SCREEN_INDEX = 1
+ SCREEN_INDEX = 2
 
 function love.load()
     local LevelSelect = require "LevelSelect"
@@ -17,13 +17,13 @@ function love.load()
     table.insert(Screens, LevelSelect())
     table.insert(Screens, Level(
     {
-        0,0,0,0,0,0,
-        0,0,0,0,0,0,
-        0,0,1,0,0,0,
-        0,0,0,0,0,0,
-        0,0,0,0,0,0
+        0,0,0,0,0,0,0,0,0,0,
+        0,1,0,0,0,0,0,0,2,0,
+        0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,3,0,0
     },
-    6
+    10
     ))
     table.insert(Screens, WinScreen)
 

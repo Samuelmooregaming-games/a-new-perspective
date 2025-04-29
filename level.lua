@@ -1,5 +1,7 @@
 local Screen = require "screen"
+
 local Level = Screen:extend()
+
 
 --[[
 
@@ -15,15 +17,16 @@ function Level:new(map,mapWidth)
     self.map = map
     self.mapWidth = mapWidth
     self.tileWidth = 32
-
+    self.button = {}
     self.player = {}
+    self.exit = {}
 
     local playerX, playerY
 
     for i, v in ipairs(map) do
         if v == 1 then
-            playerX = math.fmod(i-1,self.mapWidth)
-            playerY = math.floor(i/self.mapWidth)
+            self.player.x = math.fmod(i-1,self.mapWidth)
+            self.player.y = math.floor(i/self.mapWidth)
         elseif v == 2 then
             self.button.x = math.fmod(i-1,self.mapWidth)
             self.button.y = math.floor(i/self.mapWidth)
@@ -35,9 +38,9 @@ function Level:new(map,mapWidth)
 
 end
 
-
 function Level:DrawScreen()
     self.super.DrawScreen()
+
 
 
     -- these varaibles define the top left corner of the tile grid
@@ -47,14 +50,16 @@ function Level:DrawScreen()
     for i, v in ipairs(self.map) do
         if v == 0 or v == 1 then
             love.graphics.setColor(1,0,0)
-        elseif v == 2 then
-            if(self.player.x == self.button.y and self.player.y == self.button.y) then
-                love.graphics.setColor(0,1,1)
+        elseif v == 3 then
+            if(self.player.x == self.button.x and self.player.y == self.button.y) or (self.player.x == self.exit.x and self.player.y == self.exit.y)  then
+                love.graphics.setColor(0,1,0)
             else
                 love.graphics.setColor(1,0,0)
             end
-            
+        elseif v == 2 then
+            love.graphics.setColor(0,0,1)
         end
+
         love.graphics.rectangle("fill", math.fmod(i-1,self.mapWidth)*(self.tileWidth) + mapOffsetX ,math.floor((i-1)/self.mapWidth)*(self.tileWidth) + mapOffsetY, self.tileWidth, self.tileWidth)
     end
 
@@ -90,11 +95,13 @@ function Level:Keypressed(key)
         y = y + 1
     end
 
-    if self.map[(y*self.mapWidth) + x + 1] ~= 2 then
+    if self.map[(y*self.mapWidth) + x + 1] ~= -1 then
         self.player.x = x
         self.player.y = y
     end
 
 end
 
+
 return Level
+
