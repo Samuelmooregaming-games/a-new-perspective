@@ -1,6 +1,6 @@
 local Screen = require "screen"
 
-local LevelSelect = screen:extend()
+local LevelSelect = Screen:extend()
 
 local SCREEN_WIDTH = 800
 local SCREEN_HEIGHT = 600
@@ -13,8 +13,6 @@ function LevelSelect:new()
 end
 
 function LevelSelect:Update(dt)
-    
-    for i = 1
 
 end
 
