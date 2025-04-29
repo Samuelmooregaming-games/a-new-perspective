@@ -1,4 +1,5 @@
-local Screen = require "screen"
+--local Screen = require "screen"
+
 
 local LevelSelect = Screen:extend()
 
@@ -15,9 +16,20 @@ local backButton = { x = 20, y = 20, width = 100, height = 50 }
 local selectedIndex = 1
 
 
-function LevelSelect:new()
-    self.super.new()
-end
+
+local LevelSelect = Screen:extend()
+
+
+--local SCREEN_WIDTH = 800
+--local SCREEN_HEIGHT = 600
+--local x = 25
+--local y = 25
+--local MaxLevels = 10
+
+--function LevelSelect:new()
+--     self.super.new()
+-- end
+
 
 function LevelSelect:load()
     local levelNumber = 1
@@ -38,7 +50,17 @@ function LevelSelect:load()
 end
 
 function LevelSelect:Update(dt)
+
+
+-- end
+
+-- function LevelSelect:DrawScreen()
+--     love.graphics.rectangle("line",x,y,20,20)
+-- end
+
+-- function LevelSelect:Keypressed(key)
     
+
     -- Mouse hover detection
     local mouseX, mouseY = love.mouse.getPosition()
     for i, level in ipairs(levels) do
@@ -166,3 +188,6 @@ function love.mousepressed(x, y, button)
         end
     end
 end
+
+-- end
+

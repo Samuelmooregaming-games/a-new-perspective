@@ -1,9 +1,10 @@
-local Object = require"classic"
+
+local Object = require "classic"
 local Screen = Object:extend()
 
 function Screen:new()
 
-    self.Canvas = love.graphics.newCanvas(SCREEN_WIDTH,SCREEN_HEIGHT)
+    --self.Canvas = love.graphics.newCanvas(SCREEN_WIDTH,SCREEN_HEIGHT)
 
 end
 
