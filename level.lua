@@ -26,20 +26,23 @@ function Level:new(map,mapWidth)
         if v == 1 then
             playerX = math.fmod(i-1,self.mapWidth)
             playerY = math.floor(i/self.mapWidth)
+        elseif v == 2 then
+            self.button.x = math.fmod(i-1,self.mapWidth)
+            self.button.y = math.floor(i/self.mapWidth)
+        elseif v == 3 then
+            self.exit.x = math.fmod(i-1,self.mapWidth)
+            self.exit.y = math.floor(i/self.mapWidth)
         end
     end
 
-    self.player.x = playerX
-    self.player.y = playerY
-
 end
 
+function Level:DrawScreen()
+    self.super.DrawScreen()
 
- function Level:DrawScreen()
-     self.super.DrawScreen()
 
 
-    -- these varaibles define the top 
+    -- these varaibles define the top left corner of the tile grid
     local mapOffsetX = love.graphics.getWidth()/2 - (self.tileWidth*self.mapWidth)/2
     local mapOffsetY = love.graphics.getHeight()/2 - (self.tileWidth* math.ceil(#self.map / self.mapWidth) )/2
 
@@ -47,7 +50,12 @@ end
         if v == 0 or v == 1 then
             love.graphics.setColor(1,0,0)
         elseif v == 2 then
-            love.graphics.setColor(0,1,1)
+            if(self.player.x == self.button.y and self.player.y == self.button.y) then
+                love.graphics.setColor(0,1,1)
+            else
+                love.graphics.setColor(1,0,0)
+            end
+            
         end
         love.graphics.rectangle("fill", math.fmod(i-1,self.mapWidth)*(self.tileWidth) + mapOffsetX ,math.floor((i-1)/self.mapWidth)*(self.tileWidth) + mapOffsetY, self.tileWidth, self.tileWidth)
     end
@@ -61,7 +69,9 @@ end
 function Level:Update(dt)
     self.super.Update(dt)
 
-
+    if self.player.x == self.exit.x and self.player.y == self.exit.y then
+        print("player win")
+    end
 
 end
 
@@ -82,11 +92,13 @@ function Level:Keypressed(key)
         y = y + 1
     end
 
-    if self.map[(y*self.mapWidth) + x + 1] == 0 then
+    if self.map[(y*self.mapWidth) + x + 1] ~= 2 then
         self.player.x = x
         self.player.y = y
     end
 
 end
 
- return Level
+
+return Level
+

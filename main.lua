@@ -8,20 +8,24 @@ SCREEN_HEIGHT = 600
  SCREEN_INDEX = 1
 
 function love.load()
+    local LevelSelect = require "LevelSelect"
     local Level = require "level"
+    local WinScreen = require "win"
     Screens = {}
 
     --create screens here
+    table.insert(Screens, LevelSelect())
     table.insert(Screens, Level(
     {
-        0,0,2,0,0,0,
-        0,0,2,0,0,0,
-        0,2,1,0,0,0,
-        0,0,2,0,0,0,
-        0,0,2,0,0,0
+        0,0,0,0,0,0,
+        0,0,0,0,0,0,
+        0,0,1,0,0,0,
+        0,0,0,0,0,0,
+        0,0,0,0,0,0
     },
     6
     ))
+    table.insert(Screens, WinScreen)
 
 end
 
@@ -37,6 +41,12 @@ end
 
 function love.keypressed(key)
     Screens[SCREEN_INDEX]:Keypressed(key)
+    if key == "space" then
+        SCREEN_INDEX = SCREEN_INDEX + 1
+        if SCREEN_INDEX > 3 then
+            SCREEN_INDEX = 1
+        end
+    end
 end
 
 local love_errorhandler = love.errorhandler

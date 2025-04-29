@@ -1,6 +1,4 @@
---local Screen = require "screen"
-
-
+local Screen = require "screen"
 local LevelSelect = Screen:extend()
 
 local levels = {}
@@ -15,20 +13,25 @@ local bannerHeight = 100
 local backButton = { x = 20, y = 20, width = 100, height = 50 }
 local selectedIndex = 1
 
+function LevelSelect:new()
+     self.super.new()
 
+     local levelNumber = 1
+     for row = 0, rows - 1 do
+         for col = 0, columns - 1 do
+             table.insert(levels, {
+                 x = offsetX + col * (boxSize + spacing),
+                 y = offsetY + row * (boxSize + spacing),
+                 size = boxSize,
+                 number = levelNumber,
+                 row = row,
+                 col = col
+             })
+             levelNumber = levelNumber + 1
+         end
+     end
 
-local LevelSelect = Screen:extend()
-
-
---local SCREEN_WIDTH = 800
---local SCREEN_HEIGHT = 600
---local x = 25
---local y = 25
---local MaxLevels = 10
-
---function LevelSelect:new()
---     self.super.new()
--- end
+ end
 
 
 function LevelSelect:load()
@@ -52,26 +55,9 @@ end
 function LevelSelect:Update(dt)
 
 
--- end
+ end
 
--- function LevelSelect:DrawScreen()
---     love.graphics.rectangle("line",x,y,20,20)
--- end
 
--- function LevelSelect:Keypressed(key)
-    
-
-    -- Mouse hover detection
-    local mouseX, mouseY = love.mouse.getPosition()
-    for i, level in ipairs(levels) do
-        if mouseX >= level.x and mouseX <= level.x + level.size and
-           mouseY >= level.y and mouseY <= level.y + level.size then
-            selectedIndex = i
-            break
-        end
-    end
-
-end
 
 function LevelSelect:DrawScreen()
     love.graphics.setBackgroundColor(0.1, 0.1, 0.1)
@@ -167,6 +153,16 @@ function LevelSelect:Keypressed(key)
     end
 end
 
+ -- Mouse hover detection
+ local mouseX, mouseY = love.mouse.getPosition()
+ for i, level in ipairs(levels) do
+     if mouseX >= level.x and mouseX <= level.x + level.size and
+        mouseY >= level.y and mouseY <= level.y + level.size then
+         selectedIndex = i
+         break
+     end
+ end
+
 function love.mousepressed(x, y, button)
     if button == 1 then
         
@@ -188,6 +184,8 @@ function love.mousepressed(x, y, button)
         end
     end
 end
+
+return LevelSelect
 
 -- end
 
