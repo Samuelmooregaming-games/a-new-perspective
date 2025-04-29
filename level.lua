@@ -15,7 +15,7 @@ function Level:new(map,mapWidth)
     self.super.new()
     self.map = map
     self.mapWidth = mapWidth
-    self.tileWidth = 64
+    self.tileWidth = 32
 
     self.player = {}
 
@@ -36,6 +36,7 @@ end
 function Level:DrawScreen()
     self.super.DrawScreen()
 
+    -- these varaibles define the top 
     local mapOffsetX = love.graphics.getWidth()/2 - (self.tileWidth*self.mapWidth)/2
     local mapOffsetY = love.graphics.getHeight()/2 - (self.tileWidth* math.ceil(#self.map / self.mapWidth) )/2
 
@@ -50,6 +51,37 @@ function Level:DrawScreen()
 
     love.graphics.setColor(1,1,1)
     love.graphics.circle("fill", (self.player.x*self.tileWidth) + mapOffsetX + self.tileWidth/2, (self.player.y*self.tileWidth) + mapOffsetY + self.tileWidth/2,10)
+
+end
+
+function Level:Update(dt)
+    self.super.Update(dt)
+
+
+
+end
+
+function Level:Keypressed(key)
+
+    self.super.Keypressed(key)
+
+    local x = self.player.x
+    local y = self.player.y
+
+    if key == "left" then
+        x = x - 1
+    elseif key == "right" then
+        x = x + 1
+    elseif key == "up" then
+        y = y - 1
+    elseif key == "down" then
+        y = y + 1
+    end
+
+    if self.map[(y*self.mapWidth) + x + 1] == 0 then
+        self.player.x = x
+        self.player.y = y
+    end
 
 end
 
