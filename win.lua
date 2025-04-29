@@ -5,7 +5,7 @@ function Win:load()
     
 end
 
-function Win:update()
+function Win:update(dt)
     
 end
 

@@ -1,7 +1,5 @@
--- local Screen = require "screen"
-
--- local Level = Screen:extend()
-
+local Screen = require "screen"
+local Level = Screen:extend()
 
 --[[
 
@@ -35,11 +33,11 @@ function Level:new(map,mapWidth)
 end
 
 
--- function Level:DrawScreen()
---     self.super.DrawScreen()
+function Level:DrawScreen()
+    self.super.DrawScreen()
 
 
-    -- these varaibles define the top 
+    -- these varaibles define the top left corner of the tile grid
     local mapOffsetX = love.graphics.getWidth()/2 - (self.tileWidth*self.mapWidth)/2
     local mapOffsetY = love.graphics.getHeight()/2 - (self.tileWidth* math.ceil(#self.map / self.mapWidth) )/2
 
@@ -82,11 +80,11 @@ function Level:Keypressed(key)
         y = y + 1
     end
 
-    if self.map[(y*self.mapWidth) + x + 1] == 0 then
+    if self.map[(y*self.mapWidth) + x + 1] ~= 2 then
         self.player.x = x
         self.player.y = y
     end
 
--- end
+end
 
--- return Level
+return Level
