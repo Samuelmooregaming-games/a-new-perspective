@@ -1,6 +1,6 @@
--- local Screen = require "screen"
+local Screen = require "screen"
 
--- local Level = Screen:extend()
+local Level = Screen:extend()
 
 
 --[[
@@ -35,8 +35,8 @@ function Level:new(map,mapWidth)
 end
 
 
--- function Level:DrawScreen()
---     self.super.DrawScreen()
+ function Level:DrawScreen()
+     self.super.DrawScreen()
 
 
     -- these varaibles define the top 
@@ -87,6 +87,6 @@ function Level:Keypressed(key)
         self.player.y = y
     end
 
--- end
+end
 
--- return Level
+ return Level
