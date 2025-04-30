@@ -28,6 +28,7 @@ function LevelSelect:new()
                  col = col
              })
              levelNumber = levelNumber + 1
+
          end
      end
 
@@ -181,6 +182,7 @@ function love.mousepressed(x, y, button)
                y >= level.y and y <= level.y + level.size then
                 selectedIndex = i
                 print("Level " .. level.number .. " selected!")
+                ChangeScreen(level.number + 3)
                 break
             end
         end
