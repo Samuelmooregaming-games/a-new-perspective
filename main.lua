@@ -21,10 +21,11 @@ function ChangeScreen(index)
 end
 
 function love.load()
+    local StartScreen = require "startScreen"
     local LevelSelect = require "LevelSelect"
     local Level = require "level"
     local WinScreen = require "win"
-    local StartScreen = require "startScreen"
+    
     Screens = {}
 
     --create screens here

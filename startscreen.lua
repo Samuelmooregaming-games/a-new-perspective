@@ -1,10 +1,13 @@
 local Screen = require "screen"
 
+
 local StartScreen = Screen:extend()
 
 --start screen code goes here
 local StartButton = {x = 250, y = 500, width = 300, height = 50}
 local TitleBox = {x = 150, y = 100, width = 500, height = 100}
+local selectedIndex = 2
+
 
 function StartScreen:new()
     self.super.new()
@@ -44,8 +47,28 @@ function StartScreen:DrawScreen()
    local TitleTextHeight = TitleFont:getHeight(TitleText)
    love.graphics.print(TitleText, TitleBox.x + (TitleBox.width / 2) - (TitleTextWidth / 2),
    TitleBox.y + (TitleBox.height / 2) - (TitleTextHeight / 2))
+   
+   function love.mousepressed(x, y, button)
+    if button == 1 then
+        
+        if x >= StartButton.x and x <= StartButton.x + StartButton.width and
+           y >= StartButton.y and y <= StartButton.y + StartButton.height then
+            print("Start button pressed!")
+            ChangeScreen(2)
+            -- Here we will switch back to the main menu
+            return
+        end
 
 
-end
+
+        
+            end
+        end
+    end
+
+
+
+
+
 
 return StartScreen

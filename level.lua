@@ -22,8 +22,8 @@ function Level:new(map,mapWidth)
     self.button = {}
     self.player = {}
     self.exit = {}
-    self.wallTexture = love.graphics.newImage("")  -- make sure '.png' is 32x32 and in the project directory
-    self.originalMap = {table.unpack(map)}
+  --  self.wallTexture = love.graphics.newImage("")  -- make sure '.png' is 32x32 and in the project directory
+    --self.originalMap = {table.unpack(map)}
 
 
     local playerX, playerY
