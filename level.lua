@@ -38,7 +38,7 @@ function Level:new(map,mapWidth)
 
 
 
-    self.originalMap = {unpack(map)}
+    self.originalMap = map
 
     for i, v in ipairs(map) do
         if v == 1 then
@@ -168,8 +168,16 @@ end
 
 function Level:Reset()
     self.super.Reset()
-    self.map = {unpack(self.originalMap)}
+    self.map = self.originalMap
     self.onWinTile = false
+
+    for i, v in ipairs(self.map) do
+        if v == 1 then
+            self.player.x = math.fmod(i - 1, self.mapWidth)
+            self.player.y = math.floor(i / self.mapWidth)
+        end
+    end
+
 end
 
 
@@ -186,14 +194,6 @@ function Level:Keypressed(key)
     if key == "r" then
         -- Reset 
         self:Reset()
-    
-        for i, v in ipairs(self.map) do
-            if v == 1 then
-                self.player.x = math.fmod(i - 1, self.mapWidth)
-                self.player.y = math.floor(i / self.mapWidth)
-            end
-        end
-        return
     end
 
     -- player movement
