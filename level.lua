@@ -22,25 +22,31 @@ function Level:new(map,mapWidth)
     self.button = {}
     self.player = {}
     self.exit = {}
-    --self.wallTexture = love.graphics.newImage("")  -- make sure '.png' is 32x32 and in the project directory
-    --self.originalMap = {table.unpack(map)}
+
+    self.WallTexture = love.graphics.newImage("Textures/gratewall.png")
+    self.FloorTexture = love.graphics.newImage("Textures/floorskin.png")
+    self.RevealTexture = love.graphics.newImage("Textures/lightwall.png")
+    self.ExitTexture = love.graphics.newImage("Textures/bigdoor.png")
+    
 
 
-    local playerX, playerY
+
+
+    self.originalMap = {unpack(map)}
 
     for i, v in ipairs(map) do
         if v == 1 then
-            self.player.x = math.fmod(i-1,self.mapWidth)
-            self.player.y = math.floor(i/self.mapWidth)
+            self.player.x = math.fmod(i - 1, self.mapWidth)
+            self.player.y = math.floor((i - 1) / self.mapWidth)
         elseif v == 2 then
-            self.button.x = math.fmod(i-1,self.mapWidth)
-            self.button.y = math.floor(i/self.mapWidth)
+            self.button.x = math.fmod(i - 1, self.mapWidth)
+            self.button.y = math.floor((i - 1) / self.mapWidth)
         elseif v == 3 then
-            self.exit.x = math.fmod(i-1,self.mapWidth)
-            self.exit.y = math.floor(i/self.mapWidth)
+            self.exit.x = math.fmod(i - 1, self.mapWidth)
+            self.exit.y = math.floor((i - 1) / self.mapWidth)
         end
     end
-
+   
 end
 
 function Level:DrawScreen()
@@ -60,33 +66,37 @@ function Level:DrawScreen()
         local revealing = (self.player.x == self.button.x and self.player.y == self.button.y)
     
         if v == 0 or v == 1 then
-            love.graphics.setColor(1, 0, 0)
-            love.graphics.rectangle("fill", tileX, tileY, self.tileWidth, self.tileWidth)
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.draw(self.FloorTexture, tileX, tileY,0,.125,.125)
         elseif v == 2 then
-            love.graphics.setColor(0, 0, 1)
-            love.graphics.rectangle("fill", tileX, tileY, self.tileWidth, self.tileWidth)
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.draw(self.RevealTexture, tileX, tileY,0,.5,.5)
         elseif v == 3 then
             if revealing then
                 love.graphics.setColor(.83, .68, .21) -- revealed exit = Gold
+                love.graphics.draw(self.ExitTexture, tileX, tileY,0,.125,.125)
             else
-                love.graphics.setColor(1, 0, 0)
+                love.graphics.setColor(1, 1, 1)
+                love.graphics.draw(self.FloorTexture, tileX, tileY,0,.125,.125)
             end
-            love.graphics.rectangle("fill", tileX, tileY, self.tileWidth, self.tileWidth)
+            
         elseif v == 4 then
             love.graphics.setColor(1, 1, 1)
-            love.graphics.draw(self.wallTexture, tileX, tileY)
+            love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
         elseif v == 5 then
             if revealing then
                 love.graphics.setColor(0.6, 1, 0.6)  -- fake walls = light green when revealed
-                love.graphics.rectangle("fill", tileX, tileY, self.tileWidth, self.tileWidth)
+                love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
             else
                 love.graphics.setColor(1, 1, 1)
-                love.graphics.draw(self.wallTexture, tileX, tileY)
+                love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
             end
         end
     end
     
-
+    if not self.player.x or not self.player.y then
+        error("Player start (tile 1) not found in the map!")
+    end
 
     love.graphics.setColor(1,1,1)
     love.graphics.circle("fill", (self.player.x*self.tileWidth) + mapOffsetX + self.tileWidth/2, (self.player.y*self.tileWidth) + mapOffsetY + self.tileWidth/2,10)
