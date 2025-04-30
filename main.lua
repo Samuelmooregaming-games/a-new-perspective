@@ -24,7 +24,15 @@ function love.load()
     local LevelSelect = require "LevelSelect"
     local Level = require "level"
     local WinScreen = require "win"
-    
+    Song = love.audio.newSource("Audio/music.ogg", "stream")
+    Song:setLooping(true)
+    Song:play()
+
+    SelectSfx = love.audio.newSource("Audio/click.ogg", "static")
+    Step = love.audio.newSource("Audio/step.ogg", "static")
+    MenuNav = love.audio.newSource("Audio/MenuNav.ogg", "static")
+
+
     Screens = {}
 
     --create screens here

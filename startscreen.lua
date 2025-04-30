@@ -53,6 +53,7 @@ function StartScreen:DrawScreen()
         if x >= StartButton.x and x <= StartButton.x + StartButton.width and
            y >= StartButton.y and y <= StartButton.y + StartButton.height then
             print("Start button pressed!")
+            SelectSfx:play()
             ChangeScreen(2)
             -- Here we will switch back to the main menu
             return
