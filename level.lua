@@ -130,11 +130,17 @@ function Level:Update(dt)
 
 end
 
+function Level:Reset()
+    self.super.Reset()
+    self.map = {unpack(self.originalMap)}
+end
+
+
 function Level:Keypressed(key)
 
     if key == "r" then
         -- Reset 
-        self.map = {table.unpack(self.originalMap)}
+        self:Reset()
     
         for i, v in ipairs(self.map) do
             if v == 1 then
