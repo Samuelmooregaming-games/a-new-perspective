@@ -165,8 +165,10 @@ function Level:Keypressed(key)
     if x >= 0 and x < self.mapWidth and y >= 0 and y < math.ceil(#self.map / self.mapWidth) then
         local index = (y * self.mapWidth) + x + 1
         if self.map[index] ~= 4 then  -- 4 is a wall
+            Step:play()
             self.player.x = x
             self.player.y = y
+            
         end
     end
 
@@ -180,6 +182,7 @@ function Level:mousepressed(x, y, button)
            y >= backButton.y and y <= backButton.y + backButton.height then
             print("Back button pressed!")
             ChangeScreen(2)
+            SelectSfx:play()
             -- Here we will switch back to the main menu
             return
         end
