@@ -102,7 +102,12 @@ function LevelSelect:DrawScreen()
         end
 
         -- Draw white box
-        love.graphics.setColor(1, 1, 1)
+        if level.completed then
+            love.graphics.setColor(0, 0, 0)
+        else
+            love.graphics.setColor(1, 1, 1)
+        end
+        
         love.graphics.rectangle("line", level.x, level.y, level.size, level.size)
 
         -- Draw number
