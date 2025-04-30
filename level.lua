@@ -14,13 +14,17 @@ local Level = Screen:extend()
 
 ]]
 
-local backButton = { x = 20, y = 20, width = 100, height = 50 }
+local backButton1 = { x = 20, y = 20, width = 100, height = 50 }
+local backButton2 = { x = SCREEN_WIDTH/2 - 50, y = SCREEN_HEIGHT/2, width = 100, height = 50 }
+local winRectangle = {x = 150,y =150,width = 500,height = 250}
 
 function Level:new(map,mapWidth)
     self.super.new()
     self.map = map
     self.mapWidth = mapWidth
     self.tileWidth = 32
+    self.completed = false
+    self.onWinTile = false
     self.button = {}
     self.player = {}
     self.exit = {}
@@ -104,9 +108,9 @@ function Level:DrawScreen()
     love.graphics.circle("fill", (self.player.x*self.tileWidth) + mapOffsetX + self.tileWidth/2, (self.player.y*self.tileWidth) + mapOffsetY + self.tileWidth/2,10)
 
 
-    -- Back Button
+    -- Back Button 1
     love.graphics.setColor(0.8, 0.1, 0.1) 
-    love.graphics.rectangle("fill", backButton.x, backButton.y, backButton.width, backButton.height)
+    love.graphics.rectangle("fill", backButton1.x, backButton1.y, backButton1.width, backButton1.height)
 
     love.graphics.setColor(1, 1, 1)
     local backFont = love.graphics.newFont(20)
@@ -115,29 +119,70 @@ function Level:DrawScreen()
     local backTextWidth = backFont:getWidth(backText)
     local backTextHeight = backFont:getHeight(backText)
     love.graphics.print(backText,
-        backButton.x + (backButton.width / 2) - (backTextWidth / 2),
-        backButton.y + (backButton.height / 2) - (backTextHeight / 2)
+        backButton1.x + (backButton1.width / 2) - (backTextWidth / 2),
+        backButton1.y + (backButton1.height / 2) - (backTextHeight / 2)
     )
+
+    
+    if self.onWinTile then
+
+        --win popup
+        love.graphics.setColor(0, 0.7, 0) 
+        love.graphics.rectangle("fill",winRectangle.x,winRectangle.y,winRectangle.width,winRectangle.height)
+        winFont = love.graphics.newFont(30)
+        love.graphics.setFont(winFont)
+        local winText = "YOU WIN!"
+        local winTextWidth = winFont:getWidth(winText)
+        local winTextHeight = winFont:getHeight(winText)
+        love.graphics.setColor(1, 1, 1) 
+        love.graphics.print("YOU WIN",
+            winRectangle.x + (winRectangle.width / 2) - (winTextWidth / 2),
+            winRectangle.y + (winRectangle.height / 2) - (winTextHeight / 2) - 50
+        )
+
+        -- Back Button 2
+        love.graphics.setColor(0, 0, 0) 
+        love.graphics.rectangle("fill", backButton2.x, backButton2.y, backButton2.width, backButton2.height)
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.setFont(backFont)
+        love.graphics.print(backText,
+            backButton2.x + (backButton2.width / 2) - (backTextWidth / 2),
+            backButton2.y + (backButton2.height / 2) - (backTextHeight / 2)
+        )
+    end
 
 end
 
 function Level:Update(dt)
     self.super.Update(dt)
 
-    if self.player.x == self.exit.x and self.player.y == self.exit.y then
-        print("player win")
+    if self.onWinTile == false then
+        if self.player.x == self.exit.x and self.player.y == self.exit.y then
+            self.completed = true
+            self.onWinTile = true
+        end
     end
+    
 
 end
 
 function Level:Reset()
     self.super.Reset()
     self.map = {unpack(self.originalMap)}
+    self.onWinTile = false
 end
 
 
 function Level:Keypressed(key)
 
+    self.super.Keypressed(key)
+
+    -- do not alow key movement after level completion
+    if self.onWinTile then
+        return
+    end
+
+    -- reset button
     if key == "r" then
         -- Reset 
         self:Reset()
@@ -151,8 +196,7 @@ function Level:Keypressed(key)
         return
     end
 
-    self.super.Keypressed(key)
-
+    -- player movement
     local x = self.player.x
     local y = self.player.y
 
@@ -166,8 +210,7 @@ function Level:Keypressed(key)
         y = y + 1
     end
 
-    local index = (y * self.mapWidth) + x + 1
-
+    -- player collisions
     if x >= 0 and x < self.mapWidth and y >= 0 and y < math.ceil(#self.map / self.mapWidth) then
         local index = (y * self.mapWidth) + x + 1
         if self.map[index] ~= 4 then  -- 4 is a wall
@@ -182,13 +225,24 @@ function Level:mousepressed(x, y, button)
     self.super.mousepressed()
     if button == 1 then
         
-        if x >= backButton.x and x <= backButton.x + backButton.width and
-           y >= backButton.y and y <= backButton.y + backButton.height then
+        if x >= backButton1.x and x <= backButton1.x + backButton1.width and
+           y >= backButton1.y and y <= backButton1.y + backButton1.height then
             print("Back button pressed!")
             ChangeScreen(2)
             -- Here we will switch back to the main menu
             return
         end
+
+        if self.onWinTile then
+            if x >= backButton2.x and x <= backButton2.x + backButton2.width and
+                y >= backButton2.y and y <= backButton2.y + backButton2.height then
+                    print("Back button pressed!")
+                    ChangeScreen(2)
+                    -- Here we will switch back to the main menu
+                    return
+            end
+        end
+
     end
 end
 
