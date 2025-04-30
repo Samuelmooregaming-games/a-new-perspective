@@ -5,8 +5,7 @@ end
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-local SCREEN_INDEX = 2
-
+local SCREEN_INDEX = 1
 function ChangeScreen(index)
 
     if index > #Screens then
@@ -47,8 +46,8 @@ function love.load()
     ))
     table.insert(Screens, Level(
     {
-        0,0,0,0,0,0,0,0,0,1,
         0,0,0,0,0,0,0,0,0,0,
+        0,1,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,2,0,0,0,0,0,
         0,0,0,0,0,0,0,3,0,0
@@ -78,6 +77,11 @@ function love.keypressed(key)
         end
     end
 end
+
+function love.mousepressed(x,y,key)
+    Screens[SCREEN_INDEX]:mousepressed(x,y,key)
+end
+
 
 local love_errorhandler = love.errorhandler
 

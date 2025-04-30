@@ -6,7 +6,6 @@ local StartScreen = Screen:extend()
 --start screen code goes here
 local StartButton = {x = 250, y = 500, width = 300, height = 50}
 local TitleBox = {x = 150, y = 100, width = 500, height = 100}
-local selectedIndex = 2
 
 
 function StartScreen:new()
@@ -48,7 +47,7 @@ function StartScreen:DrawScreen()
    love.graphics.print(TitleText, TitleBox.x + (TitleBox.width / 2) - (TitleTextWidth / 2),
    TitleBox.y + (TitleBox.height / 2) - (TitleTextHeight / 2))
    
-   function love.mousepressed(x, y, button)
+   function StartScreen:mousepressed(x, y, button)
     if button == 1 then
         
         if x >= StartButton.x and x <= StartButton.x + StartButton.width and

@@ -20,4 +20,7 @@ end
 function Screen:Reset()
 end
 
+function Screen:mousepressed(x,y,button)
+end
+
 return Screen

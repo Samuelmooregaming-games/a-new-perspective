@@ -166,7 +166,7 @@ end
      end
  end
 
-function love.mousepressed(x, y, button)
+function LevelSelect:mousepressed(x, y, button)
     if button == 1 then
         
         if x >= backButton.x and x <= backButton.x + backButton.width and
