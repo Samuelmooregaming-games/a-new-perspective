@@ -11,7 +11,7 @@ local offsetX, offsetY = 15, 200
 
 local bannerHeight = 100
 local backButton = { x = 20, y = 20, width = 100, height = 50 }
-local selectedIndex = 1
+local selectedIndex = 2
 
 function LevelSelect:new()
      self.super.new()
@@ -166,12 +166,13 @@ end
      end
  end
 
-function love.mousepressed(x, y, button)
+function LevelSelect:mousepressed(x, y, button)
     if button == 1 then
         
         if x >= backButton.x and x <= backButton.x + backButton.width and
            y >= backButton.y and y <= backButton.y + backButton.height then
             print("Back button pressed!")
+            ChangeScreen(1)
             -- Here we will switch back to the main menu
             return
         end

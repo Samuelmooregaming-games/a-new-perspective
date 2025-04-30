@@ -22,11 +22,13 @@ function Level:new(map,mapWidth)
     self.button = {}
     self.player = {}
     self.exit = {}
+
     self.WallTexture = love.graphics.newImage("Textures/gratewall.png")
     self.FloorTexture = love.graphics.newImage("Textures/floorskin.png")
     self.RevealTexture = love.graphics.newImage("Textures/lightwall.png")
     self.ExitTexture = love.graphics.newImage("Textures/bigdoor.png")
     
+
 
 
 
