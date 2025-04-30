@@ -12,10 +12,12 @@ function Screen:Update(dt)
 end
 
 function Screen:DrawScreen()
-    
 end
 
 function Screen:Keypressed(key)
+end
+
+function Screen:Reset()
 end
 
 return Screen

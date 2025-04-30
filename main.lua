@@ -5,16 +5,32 @@ end
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
- SCREEN_INDEX = 2
+local SCREEN_INDEX = 2
+
+function ChangeScreen(index)
+
+    if index > #Screens then
+        print("invalid index")
+        return
+    end
+
+    SCREEN_INDEX = index
+
+    Screens[SCREEN_INDEX]:Reset()
+
+end
 
 function love.load()
     local LevelSelect = require "LevelSelect"
     local Level = require "level"
     local WinScreen = require "win"
+    local StartScreen = require "startScreen"
     Screens = {}
 
     --create screens here
+    table.insert(Screens, StartScreen())
     table.insert(Screens, LevelSelect())
+    table.insert(Screens, WinScreen())
     table.insert(Screens, Level(
     {
         0,0,0,0,0,0,0,0,0,0,
@@ -25,7 +41,17 @@ function love.load()
     },
     10
     ))
-    table.insert(Screens, WinScreen)
+    table.insert(Screens, Level(
+    {
+        0,0,0,0,0,0,0,0,0,1,
+        0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,2,0,0,0,0,0,
+        0,0,0,0,0,0,0,3,0,0
+    },
+    10
+    ))
+    
 
 end
 
