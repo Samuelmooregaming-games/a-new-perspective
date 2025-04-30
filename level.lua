@@ -14,6 +14,8 @@ local Level = Screen:extend()
 
 ]]
 
+local backButton = { x = 20, y = 20, width = 100, height = 50 }
+
 function Level:new(map,mapWidth)
     self.super.new()
     self.map = map
@@ -101,6 +103,22 @@ function Level:DrawScreen()
     love.graphics.setColor(1,1,1)
     love.graphics.circle("fill", (self.player.x*self.tileWidth) + mapOffsetX + self.tileWidth/2, (self.player.y*self.tileWidth) + mapOffsetY + self.tileWidth/2,10)
 
+
+    -- Back Button
+    love.graphics.setColor(0.8, 0.1, 0.1) 
+    love.graphics.rectangle("fill", backButton.x, backButton.y, backButton.width, backButton.height)
+
+    love.graphics.setColor(1, 1, 1)
+    local backFont = love.graphics.newFont(20)
+    love.graphics.setFont(backFont)
+    local backText = "Back"
+    local backTextWidth = backFont:getWidth(backText)
+    local backTextHeight = backFont:getHeight(backText)
+    love.graphics.print(backText,
+        backButton.x + (backButton.width / 2) - (backTextWidth / 2),
+        backButton.y + (backButton.height / 2) - (backTextHeight / 2)
+    )
+
 end
 
 function Level:Update(dt)
@@ -144,14 +162,28 @@ function Level:Keypressed(key)
 
     local index = (y * self.mapWidth) + x + 1
 
-if x >= 0 and x < self.mapWidth and y >= 0 and y < math.ceil(#self.map / self.mapWidth) then
-    local index = (y * self.mapWidth) + x + 1
-    if self.map[index] ~= 4 then  -- 4 is a wall
-        self.player.x = x
-        self.player.y = y
+    if x >= 0 and x < self.mapWidth and y >= 0 and y < math.ceil(#self.map / self.mapWidth) then
+        local index = (y * self.mapWidth) + x + 1
+        if self.map[index] ~= 4 then  -- 4 is a wall
+            self.player.x = x
+            self.player.y = y
+        end
     end
+
 end
 
+function Level:mousepressed(x, y, button)
+    self.super.mousepressed()
+    if button == 1 then
+        
+        if x >= backButton.x and x <= backButton.x + backButton.width and
+           y >= backButton.y and y <= backButton.y + backButton.height then
+            print("Back button pressed!")
+            ChangeScreen(2)
+            -- Here we will switch back to the main menu
+            return
+        end
+    end
 end
 
 
