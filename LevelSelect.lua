@@ -57,6 +57,15 @@ end
 
 function LevelSelect:Update(dt)
 
+ -- Mouse hover detection
+ local mouseX, mouseY = love.mouse.getPosition()
+ for i, level in ipairs(levels) do
+     if mouseX >= level.x and mouseX <= level.x + level.size and
+        mouseY >= level.y and mouseY <= level.y + level.size then
+         selectedIndex = i
+         break
+     end
+ end
 
  end
 

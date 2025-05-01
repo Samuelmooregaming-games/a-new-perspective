@@ -28,6 +28,8 @@ function Level:new(map,mapWidth)
     self.button = {}
     self.player = {}
     self.exit = {}
+    self.exitRevealed = false
+
 
     self.WallTexture = love.graphics.newImage("Textures/gratewall.png")
     self.FloorTexture = love.graphics.newImage("Textures/floorskin.png")
@@ -56,6 +58,7 @@ function Level:new(map,mapWidth)
                 self.image_width, self.image_height))
         end
     end
+
 
 
 
@@ -177,12 +180,20 @@ end
 
 function Level:Update(dt)
     self.super.Update(dt)
+
+
+    if self.player.x == self.button.x and self.player.y == self.button.y then
+        self.exitRevealed = true
+    end
+
+
 Currentquad = Currentquad + 10 * dt
 if Currentquad>= 4 then
     Currentquad = 1
 end
+
     if self.onWinTile == false then
-        if self.player.x == self.exit.x and self.player.y == self.exit.y then
+        if self.player.x == self.exit.x and self.player.y == self.exit.y and self.exitRevealed then
             self.completed = true
             self.onWinTile = true
             local allCompleted = true
@@ -206,6 +217,7 @@ function Level:Reset()
     self.super.Reset()
     self.map = self.originalMap
     self.onWinTile = false
+    self.exitRevealed = false
 
     for i, v in ipairs(self.map) do
         if v == 1 then
@@ -217,7 +229,9 @@ function Level:Reset()
 end
 
 
+
 function Level:Keypressed(key)
+
 
     self.super.Keypressed(key)
 
