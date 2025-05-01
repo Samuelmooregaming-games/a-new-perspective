@@ -285,12 +285,6 @@ end
 
 function love.keypressed(key)
     Screens[SCREEN_INDEX]:Keypressed(key)
-    if key == "space" then
-        SCREEN_INDEX = SCREEN_INDEX + 1
-        if SCREEN_INDEX > 3 then
-            SCREEN_INDEX = 1
-        end
-    end
 end
 
 function love.mousepressed(x,y,key)
