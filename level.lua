@@ -160,6 +160,16 @@ function Level:Update(dt)
         if self.player.x == self.exit.x and self.player.y == self.exit.y then
             self.completed = true
             self.onWinTile = true
+            local allCompleted = true
+            for i, v in ipairs(Screens)do
+                if v.completed == false then
+                    allCompleted = false
+                    break
+                end
+            end
+            if allCompleted == true then
+                ChangeScreen(3)
+            end
         end
     end
     
