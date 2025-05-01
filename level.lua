@@ -251,6 +251,9 @@ function Level:Keypressed(key)
         local index = (y * self.mapWidth) + x + 1
         if self.map[index] ~= 4 then  -- 4 is a wall
             if self.player.x ~= x or self.player.y ~= y then
+                if Step:isPlaying() then
+                    Step:stop()
+                end
                 Step:play()
             end
             
