@@ -343,6 +343,9 @@ function Level:Keypressed(key)
           local endTile = getTile(endX, endY)
 
         if midTile ~= 4 and endTile ~= 4 then
+            if Step:isPlaying() == true then
+                Step:stop()
+            end
             Step:play()
             self.player.x = endX
             self.player.y = endY
@@ -352,6 +355,9 @@ function Level:Keypressed(key)
     else
         local targetTile = getTile(nextX, nextY)
         if targetTile ~= 4 then
+            if Step:isPlaying() == true then
+                Step:stop()
+            end
             Step:play()
             self.player.x = nextX
             self.player.y = nextY
