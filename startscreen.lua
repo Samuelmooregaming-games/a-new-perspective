@@ -6,6 +6,7 @@ local StartScreen = Screen:extend()
 --start screen code goes here
 local StartButton = {x = 250, y = 500, width = 300, height = 50}
 local TitleBox = {x = 150, y = 100, width = 500, height = 100}
+local tutorialtile1 = new
 
 
 function StartScreen:new()
@@ -23,7 +24,7 @@ end
 
 function StartScreen:DrawScreen()
    
-    love.graphics.setBackgroundColor(0,1,0)
+    love.graphics.setBackgroundColor(.1,.1,.1)
    love.graphics.setColor(0.8,0.1,0.1)
    love.graphics.rectangle("fill", StartButton.x,StartButton.y,StartButton.width,StartButton.height)
    love.graphics.setColor(1,1,1)
