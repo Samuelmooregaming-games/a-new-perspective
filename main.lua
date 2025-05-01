@@ -6,6 +6,9 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 local SCREEN_INDEX = 1
+
+Screens = {}
+
 function ChangeScreen(index)
 
     if index > #Screens then
@@ -31,11 +34,6 @@ function love.load()
     SelectSfx = love.audio.newSource("Audio/click.ogg", "static")
     Step = love.audio.newSource("Audio/step.ogg", "static")
     MenuNav = love.audio.newSource("Audio/MenuNav.ogg", "static")
-
-    
-   
-
-    Screens = {}
 
     --create screens here
     table.insert(Screens, StartScreen())
