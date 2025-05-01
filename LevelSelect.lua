@@ -1,6 +1,8 @@
 local Screen = require "screen"
 local LevelSelect = Screen:extend()
 
+local Button = require "button"
+
 local levels = {}
 local columns = 5  
 local rows = 2     
@@ -10,7 +12,7 @@ local offsetX, offsetY = 15, 200
 
 
 local bannerHeight = 100
-local backButton = { x = 20, y = 20, width = 100, height = 50 }
+local backButton = Button("Back",20,20,100,50,function() ChangeScreen(1) end, love.graphics.newFont(20))
 local selectedIndex = 2
 
 function LevelSelect:new()
@@ -87,19 +89,7 @@ function LevelSelect:DrawScreen()
     love.graphics.print(title, (love.graphics.getWidth() / 2) - (titleWidth / 2), 30)
 
     -- Back Button
-    love.graphics.setColor(0.8, 0.1, 0.1) 
-    love.graphics.rectangle("fill", backButton.x, backButton.y, backButton.width, backButton.height)
-
-    love.graphics.setColor(1, 1, 1)
-    local backFont = love.graphics.newFont(20)
-    love.graphics.setFont(backFont)
-    local backText = "Back"
-    local backTextWidth = backFont:getWidth(backText)
-    local backTextHeight = backFont:getHeight(backText)
-    love.graphics.print(backText,
-        backButton.x + (backButton.width / 2) - (backTextWidth / 2),
-        backButton.y + (backButton.height / 2) - (backTextHeight / 2)
-    )
+    backButton:render()
 
     -- Level boxes
     love.graphics.setFont(love.graphics.newFont(14)) 
@@ -188,15 +178,6 @@ end
 
 function LevelSelect:mousepressed(x, y, button)
     if button == 1 then
-        
-        if x >= backButton.x and x <= backButton.x + backButton.width and
-           y >= backButton.y and y <= backButton.y + backButton.height then
-            print("Back button pressed!")
-            SelectSfx:play()
-            ChangeScreen(1)
-            -- Here we will switch back to the main menu
-            return
-        end
 
         -- Check if clicked a level
         for i, level in ipairs(levels) do
@@ -209,6 +190,9 @@ function LevelSelect:mousepressed(x, y, button)
                 break
             end
         end
+
+        backButton:checkPressed(x,y)
+
     end
 end
 

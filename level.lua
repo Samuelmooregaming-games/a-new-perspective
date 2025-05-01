@@ -14,8 +14,11 @@ local Level = Screen:extend()
 
 ]]
 
-local backButton1 = { x = 3, y = 5, width = 75, height = 50 }
-local backButton2 = { x = SCREEN_WIDTH/2 - 50, y = SCREEN_HEIGHT/2, width = 100, height = 50 }
+local Button = require "button"
+
+local backButton1 = Button("Back",3,5,75,50,function() ChangeScreen(2) end, love.graphics.newFont(20))
+local backButton2 = Button("Back",SCREEN_WIDTH/2 - 50,SCREEN_HEIGHT/2,100,50,function() ChangeScreen(2) end, love.graphics.newFont(20))
+
 local winRectangle = {x = 150,y =150,width = 500,height = 250}
 
 function Level:new(map,mapWidth)
@@ -23,7 +26,7 @@ function Level:new(map,mapWidth)
      self.map = map
      self.mapWidth = mapWidth
      self.tileWidth = 32
-     self.completed = false
+     self.completed = true
      self.onWinTile = false
      self.button = {}
      self.player = {}
@@ -146,20 +149,7 @@ function Level:DrawScreen()
      love.graphics.draw(self.PlayerTexture, quads[math.floor(Currentquad)], (self.player.x*self.tileWidth) + mapOffsetX,  (self.player.y*self.tileWidth) + mapOffsetY )
     
 
-    -- Back Button 1
-     love.graphics.setColor(0.8, 0.1, 0.1) 
-     love.graphics.rectangle("fill", backButton1.x, backButton1.y, backButton1.width, backButton1.height)
-
-     love.graphics.setColor(1, 1, 1)
-     local backFont = love.graphics.newFont(20)
-     love.graphics.setFont(backFont)
-     local backText = "Back"
-     local backTextWidth = backFont:getWidth(backText)
-     local backTextHeight = backFont:getHeight(backText)
-     love.graphics.print(backText,
-        backButton1.x + (backButton1.width / 2) - (backTextWidth / 2),
-        backButton1.y + (backButton1.height / 2) - (backTextHeight / 2)
-    )
+    backButton1:render()
 
     -- ui for jumps
      love.graphics.setColor(1, 1, 1)
@@ -174,7 +164,7 @@ function Level:DrawScreen()
         --win popup
         love.graphics.setColor(0, 0.7, 0) 
         love.graphics.rectangle("fill",winRectangle.x,winRectangle.y,winRectangle.width,winRectangle.height)
-        winFont = love.graphics.newFont(30)
+        local winFont = love.graphics.newFont(30)
         love.graphics.setFont(winFont)
         local winText = "YOU WIN!"
         local winTextWidth = winFont:getWidth(winText)
@@ -185,15 +175,8 @@ function Level:DrawScreen()
             winRectangle.y + (winRectangle.height / 2) - (winTextHeight / 2) - 50
         )
 
-        -- Back Button 2
-         love.graphics.setColor(0, 0, 0) 
-         love.graphics.rectangle("fill", backButton2.x, backButton2.y, backButton2.width, backButton2.height)
-         love.graphics.setColor(1, 1, 1)
-         love.graphics.setFont(backFont)
-         love.graphics.print(backText,
-            backButton2.x + (backButton2.width / 2) - (backTextWidth / 2),
-            backButton2.y + (backButton2.height / 2) - (backTextHeight / 2)
-        )
+
+        backButton2:render()
     end
 
 end
@@ -326,25 +309,12 @@ end
 function Level:mousepressed(x, y, button)
     self.super.mousepressed()
     if button == 1 then
-        
-        if x >= backButton1.x and x <= backButton1.x + backButton1.width and
-           y >= backButton1.y and y <= backButton1.y + backButton1.height then
-            print("Back button pressed!")
-            ChangeScreen(2)
-            SelectSfx:play()
-            -- Here we will switch back to the main menu
-            return
-        end
 
         if self.onWinTile then
-            if x >= backButton2.x and x <= backButton2.x + backButton2.width and
-                y >= backButton2.y and y <= backButton2.y + backButton2.height then
-                    print("Back button pressed!")
-                    ChangeScreen(2)
-                    -- Here we will switch back to the main menu
-                    return
-            end
+            backButton2:checkPressed(x,y)
         end
+
+        backButton1:checkPressed(x,y)
 
     end
 end
