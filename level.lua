@@ -203,6 +203,16 @@ end
         if self.player.x == self.exit.x and self.player.y == self.exit.y and self.exitRevealed then
             self.completed = true
             self.onWinTile = true
+            local allCompleted = true
+            for i, v in ipairs(Screens)do
+                if v.completed == false then
+                    allCompleted = false
+                    break
+                end
+            end
+            if allCompleted == true then
+                ChangeScreen(3)
+            end
         end
     end
     
@@ -261,6 +271,7 @@ function Level:Keypressed(key)
         return self.map[(y * self.mapWidth) + x + 1]
     end
 
+
      local nextX = self.player.x + dx
      local nextY = self.player.y + dy
 
@@ -287,6 +298,7 @@ function Level:Keypressed(key)
             Step:play()
             self.player.x = nextX
             self.player.y = nextY
+
         end
     end
 
