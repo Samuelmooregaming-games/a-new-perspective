@@ -34,6 +34,28 @@ function Level:new(map,mapWidth)
     self.RevealTexture = love.graphics.newImage("Textures/lightwall.png")
     self.ExitTexture = love.graphics.newImage("Textures/bigdoor.png")
     
+    self.PlayerTexture = love.graphics.newImage("Textures/playerball.png")
+    
+     self.image_width = self.PlayerTexture:getWidth()
+    self.image_height = self.PlayerTexture:getHeight()
+    width = (self.image_width / 4)
+    height = (self.image_height)
+    maxquads = 4
+    Currentquad = 1
+
+    quads = {}
+    for i = 0, 1 do
+        for j = 0, 2 do
+            if #quads == maxquads then
+                break
+            end
+            table.insert(quads, love.graphics.newQuad(
+                 j * (width),
+                 i * (height),
+                width, height,
+                self.image_width, self.image_height))
+        end
+    end
 
 
 
@@ -57,7 +79,7 @@ end
 
 function Level:DrawScreen()
     self.super.DrawScreen()
-
+   
 
 
     -- these varaibles define the top left corner of the tile grid
@@ -105,8 +127,8 @@ function Level:DrawScreen()
     end
 
     love.graphics.setColor(1,1,1)
-    love.graphics.circle("fill", (self.player.x*self.tileWidth) + mapOffsetX + self.tileWidth/2, (self.player.y*self.tileWidth) + mapOffsetY + self.tileWidth/2,10)
-
+    love.graphics.draw(self.PlayerTexture, quads[math.floor(Currentquad)], (self.player.x*self.tileWidth) + mapOffsetX,  (self.player.y*self.tileWidth) + mapOffsetY )
+    
 
     -- Back Button 1
     love.graphics.setColor(0.8, 0.1, 0.1) 
@@ -155,7 +177,10 @@ end
 
 function Level:Update(dt)
     self.super.Update(dt)
-
+Currentquad = Currentquad + 10 * dt
+if Currentquad>= 4 then
+    Currentquad = 1
+end
     if self.onWinTile == false then
         if self.player.x == self.exit.x and self.player.y == self.exit.y then
             self.completed = true
@@ -163,6 +188,7 @@ function Level:Update(dt)
         end
     end
     
+
 
 end
 
