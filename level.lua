@@ -250,7 +250,10 @@ function Level:Keypressed(key)
     if x >= 0 and x < self.mapWidth and y >= 0 and y < math.ceil(#self.map / self.mapWidth) then
         local index = (y * self.mapWidth) + x + 1
         if self.map[index] ~= 4 then  -- 4 is a wall
-            Step:play()
+            if self.player.x ~= x or self.player.y ~= y then
+                Step:play()
+            end
+            
             self.player.x = x
             self.player.y = y
             
