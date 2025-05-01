@@ -102,8 +102,8 @@ function LevelSelect:DrawScreen()
         end
 
         -- Draw white box
-        if level.completed then
-            love.graphics.setColor(0, 0, 0)
+        if Screens[level.number + 3].completed then
+            love.graphics.setColor(0, 1, 0)
         else
             love.graphics.setColor(1, 1, 1)
         end
@@ -111,7 +111,6 @@ function LevelSelect:DrawScreen()
         love.graphics.rectangle("line", level.x, level.y, level.size, level.size)
 
         -- Draw number
-        love.graphics.setColor(1, 1, 1)
         local text = tostring(level.number)
         local smallFont = love.graphics.getFont()
         local textWidth = smallFont:getWidth(text)
@@ -163,6 +162,7 @@ function LevelSelect:Keypressed(key)
     elseif key == "return" or key == "kpenter" then
         print("Level " .. current.number .. " selected!")
         SelectSfx:play()
+        ChangeScreen(current.number + 3)
         
     end
 end

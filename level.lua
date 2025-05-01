@@ -200,13 +200,13 @@ function Level:Keypressed(key)
     local x = self.player.x
     local y = self.player.y
 
-    if key == "left" then
+    if key == "a" then
         x = x - 1
-    elseif key == "right" then
+    elseif key == "d" then
         x = x + 1
-    elseif key == "up" then
+    elseif key == "w" then
         y = y - 1
-    elseif key == "down" then
+    elseif key == "s" then
         y = y + 1
     end
 
