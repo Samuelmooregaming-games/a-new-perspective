@@ -196,6 +196,16 @@ end
         if self.player.x == self.exit.x and self.player.y == self.exit.y and self.exitRevealed then
             self.completed = true
             self.onWinTile = true
+            local allCompleted = true
+            for i, v in ipairs(Screens)do
+                if v.completed == false then
+                    allCompleted = false
+                    break
+                end
+            end
+            if allCompleted == true then
+                ChangeScreen(3)
+            end
         end
     end
     
@@ -254,7 +264,13 @@ function Level:Keypressed(key)
     if x >= 0 and x < self.mapWidth and y >= 0 and y < math.ceil(#self.map / self.mapWidth) then
         local index = (y * self.mapWidth) + x + 1
         if self.map[index] ~= 4 then  -- 4 is a wall
-            Step:play()
+            if self.player.x ~= x or self.player.y ~= y then
+                if Step:isPlaying() then
+                    Step:stop()
+                end
+                Step:play()
+            end
+            
             self.player.x = x
             self.player.y = y
             
