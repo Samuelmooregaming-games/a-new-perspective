@@ -35,6 +35,7 @@ function Level:new(map,mapWidth)
 
 
     self.originalMap = {unpack(map)}
+    self.originalMap = map
 
     for i, v in ipairs(map) do
         if v == 1 then
@@ -135,6 +136,7 @@ function Level:Keypressed(key)
     if key == "r" then
         -- Reset 
         self.map = {table.unpack(self.originalMap)}
+        self.map = self.originalMap
     
         for i, v in ipairs(self.map) do
             if v == 1 then
