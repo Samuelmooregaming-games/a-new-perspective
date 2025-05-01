@@ -28,6 +28,8 @@ function Level:new(map,mapWidth)
     self.button = {}
     self.player = {}
     self.exit = {}
+    self.exitRevealed = false
+
 
     self.WallTexture = love.graphics.newImage("Textures/gratewall.png")
     self.FloorTexture = love.graphics.newImage("Textures/floorskin.png")
@@ -157,8 +159,12 @@ end
 function Level:Update(dt)
     self.super.Update(dt)
 
+    if self.player.x == self.button.x and self.player.y == self.button.y then
+        self.exitRevealed = true
+    end
+
     if self.onWinTile == false then
-        if self.player.x == self.exit.x and self.player.y == self.exit.y then
+        if self.player.x == self.exit.x and self.player.y == self.exit.y and self.exitRevealed then
             self.completed = true
             self.onWinTile = true
         end
@@ -171,6 +177,7 @@ function Level:Reset()
     self.super.Reset()
     self.map = self.originalMap
     self.onWinTile = false
+    self.exitRevealed = false
 
     for i, v in ipairs(self.map) do
         if v == 1 then
