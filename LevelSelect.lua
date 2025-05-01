@@ -111,11 +111,15 @@ function LevelSelect:DrawScreen()
         end
 
         -- Draw white box
-        love.graphics.setColor(1, 1, 1)
+        if Screens[level.number + 3].completed then
+            love.graphics.setColor(0, 1, 0)
+        else
+            love.graphics.setColor(1, 1, 1)
+        end
+        
         love.graphics.rectangle("line", level.x, level.y, level.size, level.size)
 
         -- Draw number
-        love.graphics.setColor(1, 1, 1)
         local text = tostring(level.number)
         local smallFont = love.graphics.getFont()
         local textWidth = smallFont:getWidth(text)
@@ -136,6 +140,7 @@ function LevelSelect:Keypressed(key)
         for i, level in ipairs(levels) do
             if level.row == current.row and level.col == current.col + 1 then
                 selectedIndex = i
+                MenuNav:play()
                 break
             end
         end
@@ -143,6 +148,7 @@ function LevelSelect:Keypressed(key)
         for i, level in ipairs(levels) do
             if level.row == current.row and level.col == current.col - 1 then
                 selectedIndex = i
+                MenuNav:play()
                 break
             end
         end
@@ -150,6 +156,7 @@ function LevelSelect:Keypressed(key)
         for i, level in ipairs(levels) do
             if level.col == current.col and level.row == current.row - 1 then
                 selectedIndex = i
+                MenuNav:play()
                 break
             end
         end
@@ -157,11 +164,15 @@ function LevelSelect:Keypressed(key)
         for i, level in ipairs(levels) do
             if level.col == current.col and level.row == current.row + 1 then
                 selectedIndex = i
+                MenuNav:play()
                 break
             end
         end
     elseif key == "return" or key == "kpenter" then
         print("Level " .. current.number .. " selected!")
+        SelectSfx:play()
+        ChangeScreen(current.number + 3)
+        
     end
 end
 
@@ -181,6 +192,7 @@ function LevelSelect:mousepressed(x, y, button)
         if x >= backButton.x and x <= backButton.x + backButton.width and
            y >= backButton.y and y <= backButton.y + backButton.height then
             print("Back button pressed!")
+            SelectSfx:play()
             ChangeScreen(1)
             -- Here we will switch back to the main menu
             return
@@ -192,6 +204,7 @@ function LevelSelect:mousepressed(x, y, button)
                y >= level.y and y <= level.y + level.size then
                 selectedIndex = i
                 print("Level " .. level.number .. " selected!")
+                SelectSfx:play()
                 ChangeScreen(level.number + 3)
                 break
             end
