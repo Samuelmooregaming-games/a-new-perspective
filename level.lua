@@ -14,7 +14,7 @@ local Level = Screen:extend()
 
 ]]
 
-local backButton1 = { x = 20, y = 20, width = 100, height = 50 }
+local backButton1 = { x = 3, y = 5, width = 75, height = 50 }
 local backButton2 = { x = SCREEN_WIDTH/2 - 50, y = SCREEN_HEIGHT/2, width = 100, height = 50 }
 local winRectangle = {x = 150,y =150,width = 500,height = 250}
 
@@ -76,6 +76,9 @@ function Level:new(map,mapWidth)
         elseif v == 3 then
             self.exit.x = math.fmod(i - 1, self.mapWidth)
             self.exit.y = math.floor((i - 1) / self.mapWidth)
+        elseif v == 6 then
+            self.exit.x = math.fmod(i - 1, self.mapWidth)
+            self.exit.y = math.floor((i - 1) / self.mapWidth)
         end
     end
    
@@ -123,7 +126,16 @@ function Level:DrawScreen()
                 love.graphics.setColor(1, 1, 1)
                 love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
             end
+        
+    elseif v == 6 then
+        if revealing then
+            love.graphics.setColor(.83, .68, .21) -- revealed exit = Gold
+            love.graphics.draw(self.ExitTexture, tileX, tileY,0,.125,.125)
+        else
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
         end
+    end
     end
     
     if not self.player.x or not self.player.y then
@@ -153,8 +165,9 @@ function Level:DrawScreen()
      love.graphics.setColor(1, 1, 1)
      local jumpFont = love.graphics.newFont(18)
      love.graphics.setFont(jumpFont)
-     local jumpText = "Jumps left: " .. tostring(self.remainingJumps)
-     love.graphics.print(jumpText, love.graphics.getWidth() - 150, 20)
+     local jumpText =  "Hold \n\n TAB \n\n to \n jump \n\n Jumps \n left: ".. tostring(self.remainingJumps)
+     love.graphics.print(jumpText, love.graphics.getWidth() - 75, 20)
+     
     
     if self.onWinTile then
 
