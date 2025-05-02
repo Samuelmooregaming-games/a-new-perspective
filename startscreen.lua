@@ -1,5 +1,6 @@
 local Screen = require "screen"
 local Button = require("button")
+local VSlider = require "volumeSlider"
 
 local StartScreen = Screen:extend()
 
@@ -10,15 +11,14 @@ local TitleBox = {x = 150, y = 100, width = 500, height = 100}
 
 local startButton = Button("Start",250,500,300,50,function() ChangeScreen(2) end,love.graphics.newFont(25),{1,1,1},{0.8,0.1,0.1})
 local tutorialbutton = Button("Tutorial",250,300,300,50,function() ChangeScreen(4) end, love.graphics.newFont(25),{1,1,1},{0.6,0.1,152})
-
+local vSlider = VSlider(SCREEN_WIDTH/2,SCREEN_HEIGHT - 160,0.75)
 
 function StartScreen:new()
     self.super.new()
-
 end
 
-function StartScreen:update (dt)
-
+function StartScreen:Update (dt)
+    vSlider:Update(dt)
 end
 
 function StartScreen:DrawScreen()
@@ -44,7 +44,7 @@ function StartScreen:DrawScreen()
 
    tutorialbutton:render()
 
-
+    vSlider:render()
 
 end
    
