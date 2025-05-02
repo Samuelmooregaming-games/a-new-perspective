@@ -22,7 +22,7 @@ function VSlider:Update(dt)
     local mouseX, mouseY = love.mouse.getPosition()
     if love.mouse.isDown(1) then
 
-        if mouseX > self.childX - self.childWidth/2 and mouseX < self.childX + self.childWidth/2 then
+        if mouseX > self.parentX - self.parentWidth/2 and mouseX < self.parentX + self.parentWidth/2 then
             if mouseY > self.childY - self.childHeight/2 and mouseY < self.childY + self.childHeight/2 then
                 movingSldier = true
             end
