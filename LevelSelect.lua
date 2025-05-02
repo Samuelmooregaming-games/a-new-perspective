@@ -101,7 +101,7 @@ function LevelSelect:DrawScreen()
         end
 
         -- Draw white box
-        if Screens[level.number + 3].completed then
+        if Screens[level.number + 4].completed then
             love.graphics.setColor(0, 1, 0)
         else
             love.graphics.setColor(1, 1, 1)
