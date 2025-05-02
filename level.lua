@@ -16,7 +16,7 @@ local Level = Screen:extend()
 
 local Button = require "button"
 
-local backButton1 = Button("Back",3,5,100,50,function() ChangeScreen(2) end, love.graphics.newFont(20),{1,1,1},{0.8,0.1,0.1})
+local backButton1 = Button("Back",3,5,75,50,function() ChangeScreen(2) end, love.graphics.newFont(20),{1,1,1},{0.8,0.1,0.1})
 local backButton2 = Button("Level Select",SCREEN_WIDTH/2 - 75,SCREEN_HEIGHT/2,150,50,function() ChangeScreen(2) end, love.graphics.newFont(20),{1,1,1},{0.8,0.1,0.1})
 
 local winRectangle = {x = 150,y =150,width = 500,height = 250}
