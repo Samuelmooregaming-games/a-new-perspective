@@ -14,8 +14,11 @@ local Level = Screen:extend()
 
 ]]
 
-local backButton1 = { x = 3, y = 5, width = 75, height = 50 }
-local backButton2 = { x = SCREEN_WIDTH/2 - 50, y = SCREEN_HEIGHT/2, width = 100, height = 50 }
+local Button = require "button"
+
+local backButton1 = Button("Back",3,5,100,50,function() ChangeScreen(2) end, love.graphics.newFont(20),{1,1,1},{0.8,0.1,0.1})
+local backButton2 = Button("Level Select",SCREEN_WIDTH/2 - 75,SCREEN_HEIGHT/2,150,50,function() ChangeScreen(2) end, love.graphics.newFont(20),{1,1,1},{0.8,0.1,0.1})
+
 local winRectangle = {x = 150,y =150,width = 500,height = 250}
 
 function Level:new(map,mapWidth)
@@ -25,9 +28,11 @@ function Level:new(map,mapWidth)
      self.tileWidth = 32
      self.completed = false
      self.onWinTile = false
+     self.onDeathTile = false
      self.button = {}
      self.player = {}
      self.exit = {}
+     self.deathbutton = {}
      self.exitRevealed = false
      self.remainingJumps = 5
 
@@ -73,12 +78,14 @@ function Level:new(map,mapWidth)
         elseif v == 2 then
             self.button.x = math.fmod(i - 1, self.mapWidth)
             self.button.y = math.floor((i - 1) / self.mapWidth)
-        elseif v == 3 then
+        elseif v == 3 or v == 6 then
             self.exit.x = math.fmod(i - 1, self.mapWidth)
             self.exit.y = math.floor((i - 1) / self.mapWidth)
-        elseif v == 6 then
-            self.exit.x = math.fmod(i - 1, self.mapWidth)
-            self.exit.y = math.floor((i - 1) / self.mapWidth)
+        elseif v == 7 or v == 8 then
+            table.insert(self.deathbutton, {
+                x = math.fmod(i - 1, self.mapWidth),
+                y = math.floor((i - 1) / self.mapWidth)
+            })
         end
     end
    
@@ -135,6 +142,32 @@ function Level:DrawScreen()
             love.graphics.setColor(1, 1, 1)
             love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
         end
+
+    elseif v == 7 then
+        if revealing then
+            love.graphics.setColor(0.8, 0.1, 0.1)  -- death walls = light red when revealed
+            love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
+        else
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
+        end
+    elseif v == 8 then
+        if revealing then
+            love.graphics.setColor(0.8, 0.1, 0.1)  -- death walls = light red when revealed
+            love.graphics.draw(self.FloorTexture, tileX, tileY,0,.125,.125)
+        else
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.draw(self.FloorTexture, tileX, tileY,0,.125,.125)
+        end
+    elseif v == 9 then
+        if revealing then
+            love.graphics.setColor(.6, .2, .6) -- revealed exit = Gold
+            love.graphics.draw(self.ExitTexture, tileX, tileY,0,.125,.125)
+        else
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.draw(self.FloorTexture, tileX, tileY,0,.125,.125)
+        end
+    
     end
     end
     
@@ -146,20 +179,7 @@ function Level:DrawScreen()
      love.graphics.draw(self.PlayerTexture, quads[math.floor(Currentquad)], (self.player.x*self.tileWidth) + mapOffsetX,  (self.player.y*self.tileWidth) + mapOffsetY )
     
 
-    -- Back Button 1
-     love.graphics.setColor(0.8, 0.1, 0.1) 
-     love.graphics.rectangle("fill", backButton1.x, backButton1.y, backButton1.width, backButton1.height)
-
-     love.graphics.setColor(1, 1, 1)
-     local backFont = love.graphics.newFont(20)
-     love.graphics.setFont(backFont)
-     local backText = "Back"
-     local backTextWidth = backFont:getWidth(backText)
-     local backTextHeight = backFont:getHeight(backText)
-     love.graphics.print(backText,
-        backButton1.x + (backButton1.width / 2) - (backTextWidth / 2),
-        backButton1.y + (backButton1.height / 2) - (backTextHeight / 2)
-    )
+    backButton1:render()
 
     -- ui for jumps
      love.graphics.setColor(1, 1, 1)
@@ -174,7 +194,7 @@ function Level:DrawScreen()
         --win popup
         love.graphics.setColor(0, 0.7, 0) 
         love.graphics.rectangle("fill",winRectangle.x,winRectangle.y,winRectangle.width,winRectangle.height)
-        winFont = love.graphics.newFont(30)
+        local winFont = love.graphics.newFont(30)
         love.graphics.setFont(winFont)
         local winText = "YOU WIN!"
         local winTextWidth = winFont:getWidth(winText)
@@ -185,15 +205,8 @@ function Level:DrawScreen()
             winRectangle.y + (winRectangle.height / 2) - (winTextHeight / 2) - 50
         )
 
-        -- Back Button 2
-         love.graphics.setColor(0, 0, 0) 
-         love.graphics.rectangle("fill", backButton2.x, backButton2.y, backButton2.width, backButton2.height)
-         love.graphics.setColor(1, 1, 1)
-         love.graphics.setFont(backFont)
-         love.graphics.print(backText,
-            backButton2.x + (backButton2.width / 2) - (backTextWidth / 2),
-            backButton2.y + (backButton2.height / 2) - (backTextHeight / 2)
-        )
+
+        backButton2:render()
     end
 
 end
@@ -205,6 +218,19 @@ function Level:Update(dt)
     if self.player.x == self.button.x and self.player.y == self.button.y then
         self.exitRevealed = true
     end
+
+   -- self.onDeathTile = false
+for _, pos in ipairs(self.deathbutton) do
+    if self.player.x == pos.x and self.player.y == pos.y then
+        self.onDeathTile = true
+        break
+    end
+end
+
+    if self.onDeathTile == true then 
+        self:Reset()
+    end
+    
 
 
 Currentquad = Currentquad + 10 * dt
@@ -238,6 +264,7 @@ function Level:Reset()
      self.map = self.originalMap
      self.onWinTile = false
      self.exitRevealed = false
+     self.onDeathTile = false
      self.remainingJumps = 5 
 
     for i, v in ipairs(self.map) do
@@ -299,6 +326,9 @@ function Level:Keypressed(key)
           local endTile = getTile(endX, endY)
 
         if midTile ~= 4 and endTile ~= 4 then
+            if Step:isPlaying() == true then
+                Step:stop()
+            end
             Step:play()
             self.player.x = endX
             self.player.y = endY
@@ -308,6 +338,9 @@ function Level:Keypressed(key)
     else
         local targetTile = getTile(nextX, nextY)
         if targetTile ~= 4 then
+            if Step:isPlaying() == true then
+                Step:stop()
+            end
             Step:play()
             self.player.x = nextX
             self.player.y = nextY
@@ -320,25 +353,12 @@ end
 function Level:mousepressed(x, y, button)
     self.super.mousepressed()
     if button == 1 then
-        
-        if x >= backButton1.x and x <= backButton1.x + backButton1.width and
-           y >= backButton1.y and y <= backButton1.y + backButton1.height then
-            print("Back button pressed!")
-            ChangeScreen(2)
-            SelectSfx:play()
-            -- Here we will switch back to the main menu
-            return
-        end
 
         if self.onWinTile then
-            if x >= backButton2.x and x <= backButton2.x + backButton2.width and
-                y >= backButton2.y and y <= backButton2.y + backButton2.height then
-                    print("Back button pressed!")
-                    ChangeScreen(2)
-                    -- Here we will switch back to the main menu
-                    return
-            end
+            backButton2:checkPressed(x,y)
         end
+
+        backButton1:checkPressed(x,y)
 
     end
 end
