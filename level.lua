@@ -240,6 +240,9 @@ function Level:Update(dt)
 for _, pos in ipairs(self.deathbutton) do
     if self.player.x == pos.x and self.player.y == pos.y then
         self.onDeathTile = true
+        if RedTileTouch:isPlaying() == true then
+            RedTileTouch:stop()
+        end
         RedTileTouch:play()
         break
     end
