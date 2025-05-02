@@ -28,6 +28,7 @@ function love.load()
     local Level = require "level"
     local WinScreen = require "win"
     local tutorial = require "tutorial"
+    local credits = require "Credits"
     Song = love.audio.newSource("Audio/music.ogg", "stream")
     Song:setLooping(true)
     Song:play()
@@ -45,6 +46,7 @@ function love.load()
     table.insert(Screens, LevelSelect())
     table.insert(Screens, WinScreen())
     table.insert(Screens, tutorial())
+    table.insert(Screens, credits())
     table.insert(Screens, Level(
         {
             4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
