@@ -16,10 +16,10 @@ function Win:DrawScreen()
     love.graphics.setBackgroundColor(.1,.1,.1)
     love.graphics.setColor(1, 1, 1) 
     love.graphics.print("You Won!", 700, 700, 0,5,5,100,100)
-
+    
     -- Back Button
     backButton:render()
-
+    WinSFX:play()
 end
 
 function Win:mousepressed(x,y,button)
