@@ -14,8 +14,22 @@ end
 
 function Win:DrawScreen()
     love.graphics.setBackgroundColor(.1,.1,.1)
-    love.graphics.setColor(1, 1, 1) 
-    love.graphics.print("You Won!", 700, 700, 0,5,5,100,100)
+     
+    local winText = "You Won!"
+    local font = love.graphics.newFont(64)
+    love.graphics.setFont(font)
+    local textWidth = font:getWidth(winText)
+    local textHeight = font:getHeight()
+    local screenWidth, screenHeight = love.graphics.getDimensions()
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print(winText, (screenWidth - textWidth) / 2, screenHeight / 4)
+
+    -- Draw total score
+    local scoreText = "Total Score: " .. tostring(GetTotalScore() or 0)
+    local scoreFont = love.graphics.newFont(32)
+    love.graphics.setFont(scoreFont)
+    local scoreWidth = scoreFont:getWidth(scoreText)
+    love.graphics.print(scoreText, (screenWidth - scoreWidth) / 2, screenHeight / 4 + textHeight + 20)
 
     -- Back Button
     backButton:render()

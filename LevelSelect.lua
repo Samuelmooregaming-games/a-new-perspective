@@ -101,7 +101,7 @@ function LevelSelect:DrawScreen()
         end
 
         -- Draw white box
-        if Screens[level.number + 4].completed then
+        if Screens[level.number + 5].completed then
             love.graphics.setColor(0, 1, 0)
         else
             love.graphics.setColor(1, 1, 1)
@@ -120,9 +120,9 @@ function LevelSelect:DrawScreen()
             level.y + (level.size / 2) - (textHeight / 2)
         )
 
-        if Screens[level.number + 4].completed then
-            love.graphics.print(Screens[level.number + 4].hiScore,
-            level.x + (level.size / 2) - love.graphics.getFont():getWidth(tostring(Screens[level.number + 4].hiScore))/2,
+        if Screens[level.number + 5].completed then
+            love.graphics.print(Screens[level.number + 5].hiScore,
+            level.x + (level.size / 2) - love.graphics.getFont():getWidth(tostring(Screens[level.number + 5].hiScore))/2,
             level.y + (level.size / 2) - (textHeight / 2) + 60)
         end
     end
@@ -167,7 +167,7 @@ function LevelSelect:Keypressed(key)
     elseif key == "return" or key == "kpenter" then
         print("Level " .. current.number .. " selected!")
         SelectSfx:play()
-        ChangeScreen(current.number + 3)
+        ChangeScreen(current.number + 5)
         
     end
 end
@@ -192,7 +192,7 @@ function LevelSelect:mousepressed(x, y, button)
                 selectedIndex = i
                 print("Level " .. level.number .. " selected!")
                 SelectSfx:play()
-                ChangeScreen(level.number + 4)
+                ChangeScreen(level.number + 5)
                 break
             end
         end

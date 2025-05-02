@@ -93,6 +93,16 @@ function Level:new(map,mapWidth)
    
 end
 
+function GetTotalScore()
+    local total = 0
+    for _, screen in ipairs(Screens) do
+        if screen.hiScore then
+            total = total + screen.hiScore
+        end
+    end
+    return total
+end
+
 function Level:DrawScreen()
      self.super.DrawScreen()
    
