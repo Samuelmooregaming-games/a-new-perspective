@@ -5,10 +5,11 @@ local StartScreen = Screen:extend()
 
 --start screen code goes here
 local TitleBox = {x = 150, y = 100, width = 500, height = 100}
-local tutorialBox = {x = 250, y = 300, width = 300, height = 50}
+
 
 
 local startButton = Button("Start",250,500,300,50,function() ChangeScreen(2) end,love.graphics.newFont(25),{1,1,1},{0.8,0.1,0.1})
+local tutorialbutton = Button("Tutorial",250,300,300,50,function() ChangeScreen(4) end, love.graphics.newFont(25),{1,1,1},{0.6,0.1,152})
 
 
 function StartScreen:new()
@@ -41,16 +42,7 @@ function StartScreen:DrawScreen()
    TitleBox.y + (TitleBox.height / 2) - (TitleTextHeight / 2))
 
 
-   love.graphics.setColor(0.6,0.1,152)
-   love.graphics.rectangle("fill", tutorialBox.x,tutorialBox.y, tutorialBox.width,tutorialBox.height)
-   love.graphics.setColor(1,1,1)
-   local tutorialFont = love.graphics.newFont(25)
-   love.graphics.setFont(tutorialFont)
-   local tutorialText = "tutorial"
-   local tutorialTextWidth = tutorialFont:getWidth(tutorialText)
-   local tutorialTextHeight = tutorialFont:getHeight(tutorialText)
-   love.graphics.print(tutorialText, tutorialBox.x + (tutorialBox.width / 2) - (tutorialTextWidth / 2),
-   tutorialBox.y + (tutorialBox.height / 2) - (tutorialTextHeight / 2))
+   tutorialbutton:render()
 
 
 
@@ -62,6 +54,7 @@ function StartScreen:mousepressed(x, y, button)
     if button == 1 then
 
         startButton:checkPressed(x,y)
+        tutorialbutton:checkPressed(x,y)
 
 
     end
