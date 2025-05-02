@@ -36,6 +36,10 @@ function love.load()
     SelectSfx = love.audio.newSource("Audio/click.ogg", "static")
     Step = love.audio.newSource("Audio/step.ogg", "static")
     MenuNav = love.audio.newSource("Audio/MenuNav.ogg", "static")
+    Unlock = love.audio.newSource("Audio/Unlock.ogg", "static")
+    RedTileTouch = love.audio.newSource("Audio/Wilhelm.ogg", "static")
+    WinSFX = love.audio.newSource("Audio/WinScreen.ogg", "static")
+
 
     --create screens here
     table.insert(Screens, StartScreen())
@@ -279,6 +283,7 @@ end
 
 function love.update(dt)
     Screens[SCREEN_INDEX]:Update(dt)
+
 
 end
 

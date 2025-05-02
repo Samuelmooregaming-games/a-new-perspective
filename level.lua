@@ -37,7 +37,7 @@ function Level:new(map,mapWidth)
      self.remainingJumps = 5
      self.hiScore = 0
      self.score = 0
-
+     
 
      self.WallTexture = love.graphics.newImage("Textures/gratewall.png")
      self.FloorTexture = love.graphics.newImage("Textures/floorskin.png")
@@ -231,20 +231,23 @@ function Level:Update(dt)
     self.super.Update(dt)
 
 
-    if self.player.x == self.button.x and self.player.y == self.button.y then
+    if self.player.x == self.button.x and self.player.y == self.button.y and self.exitRevealed == false  then
         self.exitRevealed = true
+        Unlock:play()
     end
 
    -- self.onDeathTile = false
 for _, pos in ipairs(self.deathbutton) do
     if self.player.x == pos.x and self.player.y == pos.y then
         self.onDeathTile = true
+        RedTileTouch:play()
         break
     end
 end
 
     if self.onDeathTile == true then 
         self:Reset()
+        
     end
     
 

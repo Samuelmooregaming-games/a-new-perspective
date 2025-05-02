@@ -14,6 +14,7 @@ end
 
 function Win:DrawScreen()
     love.graphics.setBackgroundColor(.1,.1,.1)
+
      
     local winText = "You Won!"
     local font = love.graphics.newFont(64)
@@ -31,9 +32,10 @@ function Win:DrawScreen()
     local scoreWidth = scoreFont:getWidth(scoreText)
     love.graphics.print(scoreText, (screenWidth - scoreWidth) / 2, screenHeight / 4 + textHeight + 20)
 
+
     -- Back Button
     backButton:render()
-
+    WinSFX:play()
 end
 
 function Win:mousepressed(x,y,button)
