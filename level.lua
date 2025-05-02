@@ -28,9 +28,11 @@ function Level:new(map,mapWidth)
      self.tileWidth = 32
      self.completed = false
      self.onWinTile = false
+     self.onDeathTile = false
      self.button = {}
      self.player = {}
      self.exit = {}
+     self.deathbutton = {}
      self.exitRevealed = false
      self.remainingJumps = 5
 
@@ -76,12 +78,14 @@ function Level:new(map,mapWidth)
         elseif v == 2 then
             self.button.x = math.fmod(i - 1, self.mapWidth)
             self.button.y = math.floor((i - 1) / self.mapWidth)
-        elseif v == 3 then
+        elseif v == 3 or v == 6 then
             self.exit.x = math.fmod(i - 1, self.mapWidth)
             self.exit.y = math.floor((i - 1) / self.mapWidth)
-        elseif v == 6 then
-            self.exit.x = math.fmod(i - 1, self.mapWidth)
-            self.exit.y = math.floor((i - 1) / self.mapWidth)
+        elseif v == 7 or v == 8 then
+            table.insert(self.deathbutton, {
+                x = math.fmod(i - 1, self.mapWidth),
+                y = math.floor((i - 1) / self.mapWidth)
+            })
         end
     end
    
@@ -138,6 +142,32 @@ function Level:DrawScreen()
             love.graphics.setColor(1, 1, 1)
             love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
         end
+
+    elseif v == 7 then
+        if revealing then
+            love.graphics.setColor(0.8, 0.1, 0.1)  -- death walls = light red when revealed
+            love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
+        else
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.draw(self.WallTexture, tileX, tileY,0,.125,.125)
+        end
+    elseif v == 8 then
+        if revealing then
+            love.graphics.setColor(0.8, 0.1, 0.1)  -- death walls = light red when revealed
+            love.graphics.draw(self.FloorTexture, tileX, tileY,0,.125,.125)
+        else
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.draw(self.FloorTexture, tileX, tileY,0,.125,.125)
+        end
+    elseif v == 9 then
+        if revealing then
+            love.graphics.setColor(.6, .2, .6) -- revealed exit = Gold
+            love.graphics.draw(self.ExitTexture, tileX, tileY,0,.125,.125)
+        else
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.draw(self.FloorTexture, tileX, tileY,0,.125,.125)
+        end
+    
     end
     end
     
@@ -189,6 +219,19 @@ function Level:Update(dt)
         self.exitRevealed = true
     end
 
+   -- self.onDeathTile = false
+for _, pos in ipairs(self.deathbutton) do
+    if self.player.x == pos.x and self.player.y == pos.y then
+        self.onDeathTile = true
+        break
+    end
+end
+
+    if self.onDeathTile == true then 
+        self:Reset()
+    end
+    
+
 
 Currentquad = Currentquad + 10 * dt
 if Currentquad>= 4 then
@@ -221,6 +264,7 @@ function Level:Reset()
      self.map = self.originalMap
      self.onWinTile = false
      self.exitRevealed = false
+     self.onDeathTile = false
      self.remainingJumps = 5 
 
     for i, v in ipairs(self.map) do
