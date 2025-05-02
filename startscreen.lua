@@ -6,11 +6,13 @@ local StartScreen = Screen:extend()
 --start screen code goes here
 local StartButton = {x = 250, y = 500, width = 300, height = 50}
 local TitleBox = {x = 150, y = 100, width = 500, height = 100}
-local tutorialtile1 = new
+local tutorialBox = {x = 250, y = 300, width = 300, height = 50}
+
 
 
 function StartScreen:new()
     self.super.new()
+
 end
 
 
@@ -47,6 +49,22 @@ function StartScreen:DrawScreen()
    local TitleTextHeight = TitleFont:getHeight(TitleText)
    love.graphics.print(TitleText, TitleBox.x + (TitleBox.width / 2) - (TitleTextWidth / 2),
    TitleBox.y + (TitleBox.height / 2) - (TitleTextHeight / 2))
+
+
+   love.graphics.setColor(0.6,0.1,152)
+   love.graphics.rectangle("fill", tutorialBox.x,tutorialBox.y, tutorialBox.width,tutorialBox.height)
+   love.graphics.setColor(1,1,1)
+   local tutorialFont = love.graphics.newFont(25)
+   love.graphics.setFont(tutorialFont)
+   local tutorialText = "tutorial"
+   local tutorialTextWidth = tutorialFont:getWidth(tutorialText)
+   local tutorialTextHeight = tutorialFont:getHeight(tutorialText)
+   love.graphics.print(tutorialText, tutorialBox.x + (tutorialBox.width / 2) - (tutorialTextWidth / 2),
+   tutorialBox.y + (tutorialBox.height / 2) - (tutorialTextHeight / 2))
+
+
+
+end
    
    function StartScreen:mousepressed(x, y, button)
     if button == 1 then
@@ -65,7 +83,7 @@ function StartScreen:DrawScreen()
         
             end
         end
-    end
+    
 
 
 
