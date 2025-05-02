@@ -165,7 +165,6 @@ function LevelSelect:Keypressed(key)
             end
         end
     elseif key == "return" or key == "kpenter" then
-        print("Level " .. current.number .. " selected!")
         SelectSfx:play()
         ChangeScreen(current.number + 5)
         
@@ -190,7 +189,6 @@ function LevelSelect:mousepressed(x, y, button)
             if x >= level.x and x <= level.x + level.size and
                y >= level.y and y <= level.y + level.size then
                 selectedIndex = i
-                print("Level " .. level.number .. " selected!")
                 SelectSfx:play()
                 ChangeScreen(level.number + 5)
                 break

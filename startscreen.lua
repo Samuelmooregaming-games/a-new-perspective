@@ -1,5 +1,5 @@
 local Screen = require "screen"
-local Button = require("button")
+local Button = require "button"
 local VSlider = require "volumeSlider"
 
 local StartScreen = Screen:extend()
@@ -12,8 +12,7 @@ local TitleBox = {x = 150, y = 100, width = 500, height = 100}
 local startButton = Button("Start",250,500,300,50,function() ChangeScreen(2) end,love.graphics.newFont(25),{1,1,1},{0.8,0.1,0.1})
 local tutorialbutton = Button("Tutorial",250,300,300,50,function() ChangeScreen(4) end, love.graphics.newFont(25),{1,1,1},{0.6,0.1,152})
 
-local CreditsButton = Button("Credits",20,20,100,50,function() ChangeScreen(5) end, love.graphics.newFont(20),{1,1,1},{0.3,0.7,0.3})
-local winButton = Button(" ",SCREEN_WIDTH-100,20,100,50,function() ChangeScreen(3) end, love.graphics.newFont(20),{1,1,1},{0.1,0.5,0.1})
+local creditsButton = Button("Credits",20,20,100,50,function() ChangeScreen(5) end, love.graphics.newFont(20),{1,1,1},{0.3,0.7,0.3})
 
 local vSlider = VSlider(SCREEN_WIDTH/2,SCREEN_HEIGHT - 160,0.75)
 
@@ -35,25 +34,20 @@ function StartScreen:DrawScreen()
 
     startButton:render()
 
-   love.graphics.setColor(0.6,0.1,0.6)
-   love.graphics.rectangle("fill", TitleBox.x,TitleBox.y, TitleBox.width,TitleBox.height)
-   love.graphics.setColor(1,1,1)
-   local TitleFont = love.graphics.newFont(70)
-   love.graphics.setFont(TitleFont)
-   local TitleText = "Recall Rush!"
-   local TitleTextWidth = TitleFont:getWidth(TitleText)
-   local TitleTextHeight = TitleFont:getHeight(TitleText)
-   love.graphics.print(TitleText, TitleBox.x + (TitleBox.width / 2) - (TitleTextWidth / 2),
-   TitleBox.y + (TitleBox.height / 2) - (TitleTextHeight / 2))
+    love.graphics.setColor(0.6,0.1,0.6)
+    love.graphics.rectangle("fill", TitleBox.x,TitleBox.y, TitleBox.width,TitleBox.height)
+    love.graphics.setColor(1,1,1)
+    local titleFont = love.graphics.newFont(70)
+    love.graphics.setFont(titleFont)
+    local titleText = "Recall Rush!"
+    local titleTextWidth = titleFont:getWidth(titleText)
+    local titleTextHeight = titleFont:getHeight(titleText)
+    love.graphics.print(titleText, TitleBox.x + (TitleBox.width / 2) - (titleTextWidth / 2),
+    TitleBox.y + (TitleBox.height / 2) - (titleTextHeight / 2))
 
 
-   tutorialbutton:render()
-
-   CreditsButton:render()
-   winButton:render()
-
-
-
+    tutorialbutton:render()
+    creditsButton:render()
     vSlider:render()
 
 
@@ -66,8 +60,7 @@ function StartScreen:mousepressed(x, y, button)
 
         startButton:checkPressed(x,y)
         tutorialbutton:checkPressed(x,y)
-        CreditsButton:checkPressed(x,y)
-        winButton:checkPressed(x,y)
+        creditsButton:checkPressed(x,y)
 
 
     end

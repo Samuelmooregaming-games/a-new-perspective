@@ -1,7 +1,7 @@
 local Object = require "classic"
 local VSlider = Object:extend()
 
-local movingSldier = false
+local movingSlider = false
 
 function VSlider:new(x,y,startValue)
     self.parentX = x
@@ -24,15 +24,15 @@ function VSlider:Update(dt)
 
         if mouseX > self.parentX - self.parentWidth/2 and mouseX < self.parentX + self.parentWidth/2 then
             if mouseY > self.childY - self.childHeight/2 and mouseY < self.childY + self.childHeight/2 then
-                movingSldier = true
+                movingSlider = true
             end
         end
     else
-        movingSldier = false
+        movingSlider = false
     end
 
     -- slider movement logic
-    if movingSldier == true then
+    if movingSlider == true then
         if mouseX < self.parentX - self.parentWidth/2 then
             self.childX = self.parentX - self.parentWidth/2
         elseif mouseX > self.parentX + self.parentWidth/2 then
@@ -52,11 +52,16 @@ function VSlider:Update(dt)
 end
 
 function VSlider:render()
+    
+    -- horizontal bar
     love.graphics.setColor(0.6,0.6,0.6)
     love.graphics.rectangle("fill",self.parentX - self.parentWidth/2,self.parentY - self.parentHeight/2,self.parentWidth,self.parentHeight)
+
+    -- slider
     love.graphics.setColor(1,1,1)
     love.graphics.rectangle("fill",self.childX - self.childWidth/2,self.childY - self.childHeight/2,self.childWidth,self.childHeight)
 
+    -- volume label
     local labelText = "Volume"
     local labelFont = love.graphics.newFont(20)
     local labelTextWidth = labelFont:getWidth(labelText)
