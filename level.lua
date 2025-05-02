@@ -310,7 +310,7 @@ function Level:Keypressed(key)
     elseif key == "s" then dy = 1
     else return end  
      
-    local moveSpeed = love.keyboard.isDown("tab") and 2 or 1
+    local moveSpeed = love.keyboard.isDown("lshift") and 2 or 1
 
     local function getTile(x, y)
         if x < 0 or x >= self.mapWidth or y < 0 or y >= math.ceil(#self.map / self.mapWidth) then
