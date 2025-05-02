@@ -186,7 +186,7 @@ function LevelSelect:mousepressed(x, y, button)
                 selectedIndex = i
                 print("Level " .. level.number .. " selected!")
                 SelectSfx:play()
-                ChangeScreen(level.number + 3)
+                ChangeScreen(level.number + 4)
                 break
             end
         end

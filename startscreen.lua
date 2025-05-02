@@ -25,7 +25,7 @@ function StartScreen:DrawScreen()
    
 
 
-    love.graphics.setBackgroundColor(0,1,0)
+    love.graphics.setBackgroundColor(.1,.1,.1)
 
 
     startButton:render()
