@@ -35,6 +35,8 @@ function Level:new(map,mapWidth)
      self.deathbutton = {}
      self.exitRevealed = false
      self.remainingJumps = 5
+     self.hiScore = 0
+     self.score = 0
 
 
      self.WallTexture = love.graphics.newImage("Textures/gratewall.png")
@@ -187,6 +189,10 @@ function Level:DrawScreen()
      love.graphics.setFont(jumpFont)
      local jumpText =  "Hold \n\n TAB \n\n to \n jump \n\n Jumps \n left: ".. tostring(self.remainingJumps)
      love.graphics.print(jumpText, love.graphics.getWidth() - 75, 20)
+
+     -- score ui
+     local scoreText = "Score: "..self.score
+     love.graphics.print(scoreText,SCREEN_WIDTH/2 - jumpFont:getWidth(scoreText)/2,20)
      
     
     if self.onWinTile then
@@ -242,6 +248,7 @@ end
         if self.player.x == self.exit.x and self.player.y == self.exit.y and self.exitRevealed then
             self.completed = true
             self.onWinTile = true
+            self.hiScore = self.score
             local allCompleted = true
             for i, v in ipairs(Screens)do
                 if v.completed == false then
@@ -274,6 +281,7 @@ function Level:Reset()
         end
     end
 
+    self.score = 0
 end
 
 
@@ -333,6 +341,7 @@ function Level:Keypressed(key)
             self.player.x = endX
             self.player.y = endY
             self.remainingJumps = self.remainingJumps - 1 
+            self.score = self.score + 1
         end
     end
     else
@@ -344,7 +353,7 @@ function Level:Keypressed(key)
             Step:play()
             self.player.x = nextX
             self.player.y = nextY
-
+            self.score = self.score + 1
         end
     end
 

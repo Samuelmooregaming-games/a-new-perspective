@@ -119,6 +119,12 @@ function LevelSelect:DrawScreen()
             level.x + (level.size / 2) - (textWidth / 2),
             level.y + (level.size / 2) - (textHeight / 2)
         )
+
+        if Screens[level.number + 4].completed then
+            love.graphics.print(Screens[level.number + 4].hiScore,
+            level.x + (level.size / 2) - love.graphics.getFont():getWidth(tostring(Screens[level.number + 4].hiScore))/2,
+            level.y + (level.size / 2) - (textHeight / 2) + 60)
+        end
     end
 end
 
