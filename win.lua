@@ -2,7 +2,7 @@ local Object = require "screen"
 local Win = Object:extend()
 
 local Button = require 'button'
-local backButton = Button("Back",SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT - 150, 200, 100, function() ChangeScreen(1) end, love.graphics.newFont(25))
+local backButton = Button("Back",SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT - 150, 200, 100, function() ChangeScreen(1) end, love.graphics.newFont(25),{0.8,0.1,0.1},{1,1,1})
 
 function Win:load()
     

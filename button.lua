@@ -2,7 +2,7 @@ local Object = require "classic"
 local Button = Object:extend()
 
 
-function Button:new(text, x, y, w, h, action, font)
+function Button:new(text, x, y, w, h, action, font, fontColor, backColor)
     self.text = text
     self.x = x
     self.y = y
@@ -10,12 +10,14 @@ function Button:new(text, x, y, w, h, action, font)
     self.h = h
     self.action = action
     self.font = font
+    self.backColor = backColor
+    self. fontColor = fontColor
 end
 
 function Button:render()
-    love.graphics.setColor(0.8,0.1,0.1)
+    love.graphics.setColor(self.backColor)
     love.graphics.rectangle("fill", self.x,self.y,self.w,self.h)
-    love.graphics.setColor(1,1,1)
+    love.graphics.setColor(self.fontColor)
     love.graphics.setFont(self.font)
     local textWidth = self.font:getWidth(self.text)
     local textHeight = self.font:getHeight(self.text)
@@ -28,7 +30,6 @@ function Button:checkPressed(x,y)
            y >= self.y and y <= self.y + self.h then
             SelectSfx:play()
             self.action()
-            -- Here we will switch back to the main menu
             return
         end
 end

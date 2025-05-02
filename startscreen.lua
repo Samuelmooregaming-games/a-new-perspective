@@ -6,7 +6,7 @@ local StartScreen = Screen:extend()
 --start screen code goes here
 local TitleBox = {x = 150, y = 100, width = 500, height = 100}
 
-local startButton = Button("Start",250,500,300,50,function() ChangeScreen(2) end,love.graphics.newFont(25))
+local startButton = Button("Start",250,500,300,50,function() ChangeScreen(2) end,love.graphics.newFont(25),{1,1,1},{0.8,0.1,0.1})
 
 
 function StartScreen:new()

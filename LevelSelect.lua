@@ -12,7 +12,7 @@ local offsetX, offsetY = 15, 200
 
 
 local bannerHeight = 100
-local backButton = Button("Back",20,20,100,50,function() ChangeScreen(1) end, love.graphics.newFont(20))
+local backButton = Button("Back",20,20,100,50,function() ChangeScreen(1) end, love.graphics.newFont(20),{1,1,1},{0.8,0.1,0.1})
 local selectedIndex = 2
 
 function LevelSelect:new()
