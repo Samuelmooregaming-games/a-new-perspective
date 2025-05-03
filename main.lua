@@ -2,6 +2,8 @@ if arg[2] == "debug" then
     require("lldebugger").start()
 end
 
+
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
@@ -23,6 +25,8 @@ function ChangeScreen(index)
 end
 
 function love.load()
+    love.window.setIcon( love.image.newImageData("Textures/RecallRushIcon.png") )
+    love.window.setTitle('Recall Rush')
     local startScreen = require "startScreen"
     local levelSelect = require "LevelSelect"
     local level = require "level"
