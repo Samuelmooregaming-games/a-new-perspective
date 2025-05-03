@@ -55,12 +55,12 @@ end
    
 
 
-function StartScreen:mousepressed(x, y, button)
+function StartScreen:MousePressed(x, y, button)
     if button == 1 then
 
-        startButton:checkPressed(x,y)
-        tutorialbutton:checkPressed(x,y)
-        creditsButton:checkPressed(x,y)
+        startButton:CheckPressed(x,y)
+        tutorialbutton:CheckPressed(x,y)
+        creditsButton:CheckPressed(x,y)
 
 
     end

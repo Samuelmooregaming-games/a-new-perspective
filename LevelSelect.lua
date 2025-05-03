@@ -181,7 +181,7 @@ end
      end
  end
 
-function LevelSelect:mousepressed(x, y, button)
+function LevelSelect:MousePressed(x, y, button)
     if button == 1 then
 
         -- Check if clicked a level
@@ -195,7 +195,7 @@ function LevelSelect:mousepressed(x, y, button)
             end
         end
 
-        backButton:checkPressed(x,y)
+        backButton:CheckPressed(x,y)
 
     end
 end
