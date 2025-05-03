@@ -23,10 +23,10 @@ function ChangeScreen(index)
 end
 
 function love.load()
-    local StartScreen = require "startScreen"
-    local LevelSelect = require "LevelSelect"
-    local Level = require "level"
-    local WinScreen = require "win"
+    local startScreen = require "startScreen"
+    local levelSelect = require "LevelSelect"
+    local level = require "level"
+    local winScreen = require "win"
     local tutorial = require "tutorial"
     local credits = require "Credits"
     Song = love.audio.newSource("Audio/music.ogg", "stream")
@@ -42,12 +42,12 @@ function love.load()
 
 
     --create screens here
-    table.insert(Screens, StartScreen())
-    table.insert(Screens, LevelSelect())
-    table.insert(Screens, WinScreen())
+    table.insert(Screens, startScreen())
+    table.insert(Screens, levelSelect())
+    table.insert(Screens, winScreen())
     table.insert(Screens, tutorial())
     table.insert(Screens, credits())
-    table.insert(Screens, Level(
+    table.insert(Screens, level(
         {
             4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
             4,1,0,0,7,0,0,0,4,0,0,0,0,2,4,
@@ -67,7 +67,7 @@ function love.load()
         }
         , 
     15))
-    table.insert(Screens, Level(
+    table.insert(Screens, level(
     {
 
          4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
@@ -87,7 +87,7 @@ function love.load()
          4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
     }, 
     15)) 
-    table.insert(Screens, Level(
+    table.insert(Screens, level(
     {
         4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
         4,2,0,0,0,5,5,5,5,0,4,0,0,1,4,
@@ -106,7 +106,7 @@ function love.load()
         4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
     }, 
     15)) 
-    table.insert(Screens, Level(
+    table.insert(Screens, level(
     {
         4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
         4,1,0,0,0,0,0,0,0,0,4,0,5,5,5,5,5,2,0,4,
@@ -130,7 +130,7 @@ function love.load()
         4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
     }, 
     20)) 
-    table.insert(Screens, Level(
+    table.insert(Screens, level(
     {
         4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
         4,1,0,0,4,0,0,0,4,0,0,0,0,4,0,5,5,5,3,4,
@@ -154,7 +154,7 @@ function love.load()
         4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
     }, 
     20)) 
-    table.insert(Screens, Level(
+    table.insert(Screens, level(
         {
             4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
             4,1,0,0,5,5,5,5,0,0,0,4,0,8,0,0,0,0,3,4,
@@ -178,7 +178,7 @@ function love.load()
             4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
         }, 
     20)) 
-     table.insert(Screens, Level(
+     table.insert(Screens, level(
      {
         4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
         4,1,0,0,0,0,4,4,4,4,0,0,0,0,0,0,0,0,3,4,
@@ -202,7 +202,7 @@ function love.load()
         4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
      }, 
     20)) 
-     table.insert(Screens, Level(
+     table.insert(Screens, level(
      {
 
          4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
@@ -228,7 +228,7 @@ function love.load()
 
                 }, 
     20)) 
-    table.insert(Screens, Level(
+    table.insert(Screens, level(
      {
         4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
         4,9,0,0,0,4,4,0,0,1,0,4,4,4,4,4,4,4,0,4,
@@ -252,7 +252,7 @@ function love.load()
         4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
      }, 
      20))
-     table.insert(Screens, Level(
+     table.insert(Screens, level(
      {
          4,4,4,4,4,4,4,4,4,5,4,4,4,4,4,4,4,4,4,4,
          4,5,5,5,5,5,5,5,5,5,5,5,4,4,4,5,5,5,5,4,

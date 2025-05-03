@@ -107,13 +107,13 @@ function LevelSelect:DrawScreen()
             love.graphics.setColor(1, 1, 1)
         end
         
-        love.graphics.rectangle("line", level.x, level.y, level.size, level.size)
+         love.graphics.rectangle("line", level.x, level.y, level.size, level.size)
 
         -- Draw number
-        local text = tostring(level.number)
-        local smallFont = love.graphics.getFont()
-        local textWidth = smallFont:getWidth(text)
-        local textHeight = smallFont:getHeight(text)
+         local text = tostring(level.number)
+         local smallFont = love.graphics.getFont()
+         local textWidth = smallFont:getWidth(text)
+         local textHeight = smallFont:getHeight(text)
 
         love.graphics.print(text,
             level.x + (level.size / 2) - (textWidth / 2),
@@ -167,15 +167,14 @@ function LevelSelect:Keypressed(key)
     elseif key == "return" or key == "kpenter" then
         SelectSfx:play()
         ChangeScreen(current.number + 5)
-        
     end
 end
 
  -- Mouse hover detection
  local mouseX, mouseY = love.mouse.getPosition()
  for i, level in ipairs(levels) do
-     if mouseX >= level.x and mouseX <= level.x + level.size and
-        mouseY >= level.y and mouseY <= level.y + level.size then
+     if  mouseX >= level.x and mouseX <= level.x + level.size and
+         mouseY >= level.y and mouseY <= level.y + level.size then
          selectedIndex = i
          break
      end
