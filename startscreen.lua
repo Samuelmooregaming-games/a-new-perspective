@@ -35,15 +35,15 @@ function StartScreen:DrawScreen()
     startButton:render()
 
     love.graphics.setColor(0.6,0.1,0.6)
-    love.graphics.rectangle("fill", TitleBox.x,TitleBox.y, TitleBox.width,TitleBox.height)
+    love.graphics.rectangle("fill", titleBox.x,titleBox.y, titleBox.width,titleBox.height)
     love.graphics.setColor(1,1,1)
     local titleFont = love.graphics.newFont(70)
     love.graphics.setFont(titleFont)
     local titleText = "Recall Rush!"
     local titleTextWidth = titleFont:getWidth(titleText)
     local titleTextHeight = titleFont:getHeight(titleText)
-    love.graphics.print(titleText, TitleBox.x + (TitleBox.width / 2) - (titleTextWidth / 2),
-    TitleBox.y + (TitleBox.height / 2) - (titleTextHeight / 2))
+    love.graphics.print(titleText, titleBox.x + (titleBox.width / 2) - (titleTextWidth / 2),
+    titleBox.y + (titleBox.height / 2) - (titleTextHeight / 2))
 
 
     tutorialbutton:render()

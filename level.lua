@@ -197,7 +197,7 @@ function Level:DrawScreen()
      love.graphics.setColor(1, 1, 1)
      local jumpFont = love.graphics.newFont(18)
      love.graphics.setFont(jumpFont)
-     local jumpText =  "Hold \n\n TAB \n\n to \n jump \n\n Jumps \n left: ".. tostring(self.remainingJumps)
+     local jumpText =  " wasd \n\n to \n\n move \n\n\n\n Hold \n\n SHIFT \n\n to \n jump \n\n Jumps \n left: ".. tostring(self.remainingJumps) .. "\n\n\n\n Press \n\n R to \n\n restart"
      love.graphics.print(jumpText, love.graphics.getWidth() - 75, 20)
 
      -- score ui
