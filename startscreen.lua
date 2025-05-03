@@ -5,7 +5,7 @@ local VSlider = require "volumeSlider"
 local StartScreen = Screen:extend()
 
 --start screen code goes here
-local TitleBox = {x = 150, y = 100, width = 500, height = 100}
+local titleBox = {x = 150, y = 100, width = 500, height = 100}
 
 
 
