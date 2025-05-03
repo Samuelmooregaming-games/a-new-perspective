@@ -45,10 +45,10 @@ function Credits:DrawScreen()
     backButton:render()
 end
 
-function Credits:mousepressed(x,y,button)
+function Credits:MousePressed(x,y,button)
     if button == 1 then
 
-        backButton:checkPressed(x,y)
+        backButton:CheckPressed(x,y)
 
     end
 end

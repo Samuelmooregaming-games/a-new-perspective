@@ -38,10 +38,10 @@ function Win:DrawScreen()
     WinSFX:play()
 end
 
-function Win:mousepressed(x,y,button)
+function Win:MousePressed(x,y,button)
 
     if button == 1 then
-        backButton:checkPressed(x,y)
+        backButton:CheckPressed(x,y)
     end
 
 end

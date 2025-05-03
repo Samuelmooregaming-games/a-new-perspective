@@ -25,7 +25,7 @@ function Button:render()
     self.y + (self.h / 2) - (textHeight / 2))
 end
 
-function Button:checkPressed(x,y)
+function Button:CheckPressed(x,y)
     if x >= self.x and x <= self.x + self.w and
            y >= self.y and y <= self.y + self.h then
             SelectSfx:play()

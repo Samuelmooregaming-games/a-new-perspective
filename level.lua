@@ -375,15 +375,14 @@ function Level:Keypressed(key)
 
 end
 
-function Level:mousepressed(x, y, button)
-    self.super.mousepressed()
+function Level:MousePressed(x, y, button)
     if button == 1 then
 
         if self.onWinTile then
-            backButton2:checkPressed(x,y)
+            backButton2:CheckPressed(x,y)
         end
 
-        backButton1:checkPressed(x,y)
+        backButton1:CheckPressed(x,y)
 
     end
 end

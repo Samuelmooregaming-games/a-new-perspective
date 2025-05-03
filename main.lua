@@ -297,7 +297,7 @@ function love.keypressed(key)
 end
 
 function love.mousepressed(x,y,key)
-    Screens[SCREEN_INDEX]:mousepressed(x,y,key)
+    Screens[SCREEN_INDEX]:MousePressed(x,y,key)
 end
 
 

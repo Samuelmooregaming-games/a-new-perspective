@@ -20,7 +20,7 @@ end
 function Screen:Reset()
 end
 
-function Screen:mousepressed(x,y,button)
+function Screen:MousePressed(x,y,button)
 end
 
 return Screen
