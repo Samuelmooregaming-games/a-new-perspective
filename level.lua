@@ -90,7 +90,9 @@ function Level:new(map,mapWidth)
             })
         end
     end
-   
+    
+    
+    
 end
 
 function GetTotalScore()

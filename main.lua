@@ -25,8 +25,9 @@ function ChangeScreen(index)
 end
 
 function love.load()
-    love.window.setIcon( love.image.newImageData("Textures/RecallRushIcon.png") )
-    love.window.setTitle('Recall Rush')
+     love.window.setIcon( love.image.newImageData("Textures/RecallRushIcon.png") )
+     love.window.setTitle('Recall Rush')
+     
     local startScreen = require "startScreen"
     local levelSelect = require "LevelSelect"
     local level = require "level"
@@ -305,12 +306,12 @@ function love.mousepressed(x,y,key)
 end
 
 
-local love_errorhandler = love.errorhandler
+-- local love_errorhandler = love.errorhandler
 
-function love.errorhandler(msg)
-    if lldebugger then
-        error(msg, 2)
-    else
-        return love_errorhandler(msg)
-    end
-end
+-- function love.errorhandler(msg)
+--     if lldebugger then
+--         error(msg, 2)
+--     else
+--         return love_errorhandler(msg)
+--     end
+-- end
